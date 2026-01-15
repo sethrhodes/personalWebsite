@@ -269,6 +269,14 @@ header {
   }
 }
 
+@media (max-width: 600px) {
+
+  .mosaic-grid,
+  .mosaic-grid.four-cols {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 .mosaic-tile {
   border: none;
   border-radius: 10px;

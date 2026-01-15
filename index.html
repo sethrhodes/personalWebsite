@@ -186,7 +186,7 @@
     .project {
       display: grid;
       gap: var(--gutter);
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       align-items: center;
       padding: calc(var(--gutter) * 1.4);
       border: 1px solid var(--border);
@@ -281,9 +281,17 @@
     }
 
     @media (max-width: 600px) {
-      header {
+      /* header {
         flex-direction: column;
         gap: 0.4rem;
+      } REMOVED TO KEEP HAMBURGER ALIGNED */
+
+      header {
+        padding: 1rem;
+      }
+
+      h1 {
+        font-size: 1.5rem;
       }
 
       .project {
