@@ -288,14 +288,36 @@
 
       header {
         padding: 1rem;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: var(--bg);
+        /* Ensure it covers content if sticky */
       }
 
       h1 {
         font-size: 1.5rem;
       }
 
+      .menu-btn {
+        flex-shrink: 0;
+        z-index: 101;
+        background: var(--card);
+        /* Ensure contrast */
+      }
+
       .project {
         padding: calc(var(--gutter) * 0.8);
+        min-height: auto;
+        /* Fixes large gap */
+        display: grid;
+        gap: 1.5rem;
+      }
+
+      .thumb {
+        width: 100%;
+        max-height: 300px;
+        /* Limit height of CAD on mobile */
       }
     }
   </style>
