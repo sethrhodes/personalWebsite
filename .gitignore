@@ -1,0 +1,11 @@
+
+.DS_Store
+*.log
+node_modules/
+.env
+
+# Large files ignored for GitHub
+SearchPhoto/S&R_AR.mp4
+NeptunePhotos/Tutorial.mp4
+NeptunePhotos/DeskVideo.mp4
+UUV.obj

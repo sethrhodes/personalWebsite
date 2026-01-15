@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seth Rhodes</title>
+  <link rel="preconnect" href="https://unpkg.com" />
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --fg: #f5f5f5;
+      --muted: #c9c9c9;
+      --accent: #7ce8ff;
+      --card: linear-gradient(120deg, #0c0c0c, #050505);
+      --border: #1a1a1a;
+      --pill: rgba(255, 255, 255, 0.04);
+      --pill-border: #1f1f1f;
+      --thumb-bg: radial-gradient(circle at 30% 30%, #111, #050505 50%);
+      --label-bg: rgba(0, 0, 0, 0.5);
+      --gutter: clamp(1rem, 3vw, 2rem);
+      --max-width: 1280px;
+      font-family: "Suisse Intl", "Neue Haas Grotesk", "Helvetica Neue", Arial, sans-serif;
+    }
+
+    body.light {
+      --bg: #f8f8f8;
+      --fg: #0a0a0a;
+      --muted: #4a4a4a;
+      --accent: #4da3ff;
+      --card: linear-gradient(120deg, #ffffff, #f2f4f8);
+      --border: #d8d8d8;
+      --pill: rgba(0, 0, 0, 0.04);
+      --pill-border: #d0d0d0;
+      --thumb-bg: radial-gradient(circle at 40% 40%, #fafafa, #f1f1f1 55%);
+      --label-bg: rgba(255, 255, 255, 0.75);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--fg);
+      position: relative;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    header {
+      padding: var(--gutter);
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #1a1a1a;
+      gap: 1rem;
+      position: relative;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.7rem, 3vw, 2.4rem);
+      letter-spacing: -0.02em;
+    }
+
+    .toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.45rem 0.85rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--fg);
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: transform 0.2s ease, border 0.2s ease;
+    }
+
+    .toggle:hover {
+      transform: translateY(-1px);
+      border-color: #2c2c2c;
+    }
+
+    .menu-btn {
+      width: 44px;
+      height: 36px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      display: inline-flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      padding: 6px 8px;
+      cursor: pointer;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .menu-btn span {
+      display: block;
+      height: 2px;
+      background: var(--fg);
+      border-radius: 2px;
+    }
+
+    .menu-btn:hover {
+      transform: translateY(-1px);
+      border-color: #ffffff;
+    }
+
+    body:not(.light) .menu-btn span {
+      background: #ffffff;
+    }
+
+    .menu-panel {
+      position: absolute;
+      top: calc(var(--gutter) + 44px);
+      right: var(--gutter);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 0.8rem;
+      display: none;
+      gap: 0.5rem;
+      min-width: 200px;
+      box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.35),
+        0 0 30px rgba(255, 255, 255, 0.2);
+      z-index: 20;
+    }
+
+    .menu-panel.active {
+      display: grid;
+    }
+
+    .menu-panel a {
+      color: var(--fg);
+      text-decoration: none;
+      padding: 0.5rem 0.6rem;
+      border-radius: 10px;
+      border: 1px solid transparent;
+    }
+
+    .menu-panel a:hover {
+      border-color: #ffffff;
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 16px rgba(255, 255, 255, 0.25);
+    }
+
+    .menu-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 0.3rem 0;
+    }
+
+    .color-wash {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      background: radial-gradient(circle at 20% 20%, #7ce8ff22, transparent 32%),
+        radial-gradient(circle at 80% 25%, #ffffff12, transparent 42%),
+        linear-gradient(130deg, #7ce8ff25, transparent 70%);
+      opacity: 0.62;
+      filter: blur(40px);
+      transition: background 0.6s ease;
+    }
+
+    main {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: calc(var(--gutter) * 0.6) var(--gutter) 4vh;
+      display: block;
+    }
+
+    .project {
+      display: grid;
+      gap: var(--gutter);
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      align-items: center;
+      padding: calc(var(--gutter) * 1.4);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: var(--card);
+      position: relative;
+      overflow: hidden;
+      min-height: 80vh;
+      isolation: isolate;
+      margin-bottom: clamp(0.6rem, 1vw, 1.1rem);
+      cursor: pointer;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .project:hover {
+      border-color: var(--accent);
+      box-shadow: 0 12px 60px rgba(124, 232, 255, 0.08), 0 4px 16px rgba(0, 0, 0, 0.4);
+    }
+
+    body:not(.light) .project:hover {
+      border-color: #ffffff;
+      box-shadow:
+        0 12px 60px rgba(255, 255, 255, 0.18),
+        0 0 30px rgba(255, 255, 255, 0.16),
+        0 6px 24px rgba(0, 0, 0, 0.55);
+    }
+
+    .meta h2 {
+      margin: 0 0 0.2em;
+      font-size: 1.4rem;
+      letter-spacing: -0.01em;
+    }
+
+    .meta p {
+      margin: 0 0 0.6em;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.6rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      gap: 0.35em;
+      align-items: center;
+      padding: 0.35em 0.65em;
+      border-radius: 999px;
+      background: var(--pill);
+      border: 1px solid var(--pill-border);
+      color: var(--fg);
+      font-size: 0.8rem;
+    }
+
+    .thumb {
+      aspect-ratio: 16 / 9;
+      background: var(--thumb-bg);
+      border: 1px solid #1a1a1a;
+      border-radius: 12px;
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+    }
+
+    canvas.webgl {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .thumb .label {
+      display: none;
+    }
+
+    .divider {
+      height: 1px;
+      background: #111;
+      margin: 2rem 0;
+    }
+
+    footer {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--gutter) 8vh;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        gap: 0.4rem;
+      }
+
+      .project {
+        padding: calc(var(--gutter) * 0.8);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="color-wash"></div>
+  <header>
+    <h1>Seth Rhodes</h1>
+    <button class="menu-btn" aria-expanded="false" aria-controls="menu-panel" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="menu-panel" id="menu-panel">
+      <a href="index.html">Home</a>
+      <a href="resume.html">Resume</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="project" data-model="helmet" data-accent="#7ce8ff" data-rot="-90,0,0" data-spin="0,0,1"
+      data-href="project-search-rescue-ar.html">
+      <div class="meta">
+        <h2>Search&Rescue AR</h2>
+        <p>Rapid spatial awareness tool for first responders, visualized in crisp linework. Stanford Immerse the Bay
+          hackathon winner.</p>
+        <div class="tags">
+          <span class="pill">AR</span>
+          <span class="pill">Field Ops</span>
+          <span class="pill">Mapping</span>
+        </div>
+      </div>
+      <div class="thumb">
+        <canvas class="webgl"></canvas>
+        <div class="label">Wireframe</div>
+      </div>
+    </section>
+
+    <section class="project" data-model="uuv" data-accent="#ff9bd5" data-spin="0,1,0"
+      data-href="project-spider-egg.html">
+      <div class="meta">
+        <h2>Spider Egg</h2>
+        <p>Modular, unmanned underwater vehicle (UUV) engineered to support interchangeable payloads, enhancing mission
+          adaptability and expanding operational capabilities in underwater environments.</p>
+        <div class="tags">
+          <span class="pill">UUV</span>
+          <span class="pill">Robotics</span>
+          <span class="pill">Simluation</span>
+        </div>
+      </div>
+      <div class="thumb">
+        <canvas class="webgl"></canvas>
+        <div class="label">Wireframe</div>
+      </div>
+    </section>
+
+    <section class="project" data-model="trident" data-rot="-90,0,-260" data-accent="#c2ff9b" data-spin="0,0,1"
+      data-href="project-neptunes-lamp.html">
+      <div class="meta">
+        <h2>Neptunes Lamp</h2>
+        <p>A sculptural desk lamp inspired by the trident form, incorporating an innovative activation mechanism to
+          elevate both function and user engagement.</p>
+        <div class="tags">
+          <span class="pill">Lighting</span>
+          <span class="pill">Industrial Design</span>
+          <span class="pill">User Experience</span>
+        </div>
+      </div>
+      <div class="thumb">
+        <canvas class="webgl"></canvas>
+        <div class="label">Wireframe</div>
+      </div>
+    </section>
+
+    <section class="project" data-model="omSculpture" data-rot="-90,0,-75" data-accent="#f6d365" data-spin="0,0,1"
+      data-href="project-om-sculpture.html">
+      <div class="meta">
+        <h2>Om Sculpture</h2>
+        <p>An industrial-style sculpture interpreting the sacred Om symbol through raw materials and structural form.
+        </p>
+        <div class="tags">
+          <span class="pill">Design</span>
+          <span class="pill">Industrial Aesthetic</span>
+          <span class="pill">Art</span>
+        </div>
+      </div>
+      <div class="thumb">
+        <canvas class="webgl"></canvas>
+        <div class="label">Wireframe</div>
+      </div>
+    </section>
+
+    <section class="project" data-model="flashlight" data-rot="-90,0,0" data-accent="#9bd9ff" data-spin="0,0,1"
+      data-href="project-light-up-puerto-rico.html">
+      <div class="meta">
+        <h2>Light Up Puerto Rico</h2>
+        <p>Community-focused project in Puerto Rico that combined the distribution of solar flashlights with hands-on
+          education in renewable energy and engineering principles.</p>
+        <div class="tags">
+          <span class="pill">Impact</span>
+          <span class="pill">Energy</span>
+          <span class="pill">Outreach</span>
+        </div>
+      </div>
+      <div class="thumb">
+        <canvas class="webgl"></canvas>
+        <div class="label">Wireframe</div>
+      </div>
+    </section>
+
+    <section class="project" data-model="motorsports" data-rot="-90,0,180" data-accent="#ffa37b" data-spin="0,0,1"
+      data-href="project-motorsports-training.html">
+      <div class="meta">
+        <h2>Motorsports Training Tool</h2>
+        <p>Cost-effective preparation tool that democratizes access to motorsports event readiness by replacing
+          expensive traditional approaches.</p>
+        <div class="tags">
+          <span class="pill">Product</span>
+          <span class="pill">Motorsports</span>
+          <span class="pill">Performance</span>
+        </div>
+      </div>
+      <div class="thumb">
+        <canvas class="webgl"></canvas>
+        <div class="label">Wireframe</div>
+      </div>
+    </section>
+  </main>
+
+  <div class="divider"></div>
+
+  <footer></footer>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js"
+      }
+    }
+  </script>
+  <script type="module">
+    import * as THREE from "three";
+    import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/controls/OrbitControls.js";
+    import { OBJLoader } from "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/OBJLoader.js";
+    import { GLTFLoader } from "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/GLTFLoader.js";
+    import { gsap } from "https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js";
+    import { ScrollTrigger } from "https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTrigger.js";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const wireframeMode = false; // Always solid
+    const projects = Array.from(document.querySelectorAll(".project"));
+    const colorWash = document.querySelector(".color-wash");
+    const rendererCache = new WeakMap();
+    const sceneCache = new WeakMap();
+    const controlsCache = new WeakMap();
+    const objLoader = new OBJLoader();
+    const gltfLoader = new GLTFLoader();
+    const meshes = [];
+
+    const getWireColor = () => 0xffffff;
+
+    const makeSurfaceMaterial = (color) => wireframeMode
+      ? new THREE.MeshBasicMaterial({ color, wireframe: true })
+      : new THREE.MeshPhysicalMaterial({
+        color,
+        metalness: 0,
+        roughness: 0.35,
+        transparent: true,
+        opacity: 0.5,
+        transmission: 0,
+        emissive: new THREE.Color(color),
+        emissiveIntensity: 0.18,
+        clearcoat: 0.08,
+        side: THREE.DoubleSide,
+        depthWrite: false,
+        polygonOffset: true,
+        polygonOffsetFactor: 1,
+        polygonOffsetUnits: 1
+      });
+
+    const applyMaterial = (object, color) => {
+      object.traverse(node => {
+        if (!node.isMesh) return;
+        const createMaterial = () => makeSurfaceMaterial(color);
+        node.material = Array.isArray(node.material) ? node.material.map(createMaterial) : createMaterial();
+        if (node.children?.length) {
+          [...node.children].forEach(child => {
+            if (child.userData?.edgeHelper) node.remove(child);
+          });
+        }
+        if (!wireframeMode && node.geometry) {
+          const edgeLines = new THREE.LineSegments(
+            new THREE.EdgesGeometry(node.geometry, 30),
+            new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.8 })
+          );
+          edgeLines.userData.edgeHelper = true;
+          edgeLines.renderOrder = 2;
+          edgeLines.material.depthTest = false;
+          edgeLines.material.depthWrite = false;
+          node.add(edgeLines);
+        }
+      });
+    };
+
+    const fitObjectToFrame = (object, targetSize = 1.6) => {
+      const box = new THREE.Box3().setFromObject(object);
+      const size = box.getSize(new THREE.Vector3());
+      const maxDim = Math.max(size.x, size.y, size.z) || 1;
+      const scale = targetSize / maxDim;
+      object.scale.setScalar(scale);
+      box.setFromObject(object);
+      const center = box.getCenter(new THREE.Vector3());
+      object.position.sub(center);
+    };
+
+    const parseRotation = (rotString) => {
+      if (!rotString) return new THREE.Euler(0, 0, 0);
+      const parts = rotString.split(",").map(v => parseFloat(v.trim()) || 0);
+      return new THREE.Euler(
+        (parts[0] || 0) * (Math.PI / 180),
+        (parts[1] || 0) * (Math.PI / 180),
+        (parts[2] || 0) * (Math.PI / 180)
+      );
+    };
+
+    const loadOBJModel = (group, path, color) => {
+      objLoader.load(path, (obj) => {
+        applyMaterial(obj, color);
+        fitObjectToFrame(obj);
+        group.clear();
+        group.add(obj);
+      });
+    };
+
+    const loadGLTFModel = (group, path, color, targetSize) => {
+      gltfLoader.load(path, (gltf) => {
+        const obj = gltf.scene;
+        applyMaterial(obj, color);
+        fitObjectToFrame(obj, targetSize);
+        group.clear();
+        group.add(obj);
+      });
+    };
+
+    const createScene = (canvas, model, targetRot) => {
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.8));
+      renderer.setClearColor(0x000000, 0);
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
+      camera.position.set(2.4, 1.5, 2.4);
+
+      const controls = new OrbitControls(camera, canvas);
+      controls.enableZoom = false;
+      controls.enablePan = false;
+      controls.autoRotate = true;
+      controls.autoRotateSpeed = 0.6;
+      controls.enableDamping = true;
+      controls.saveState();
+
+      const wireColor = getWireColor();
+      const homeRotation = targetRot || new THREE.Euler(0, 0, 0);
+      const wireMat = makeSurfaceMaterial(wireColor);
+      let mesh;
+      if (model === "trident") {
+        mesh = new THREE.Group();
+        loadOBJModel(mesh, "CADModels/TridentObj.obj", wireColor);
+      } else if (model === "omSculpture") {
+        mesh = new THREE.Group();
+        loadOBJModel(mesh, "CADModels/OmSculpture.obj", wireColor);
+      } else if (model === "motorsports") {
+        mesh = new THREE.Group();
+        loadOBJModel(mesh, "CADModels/Motorsports.obj", wireColor);
+      } else if (model === "helmet") {
+        mesh = new THREE.Group();
+        loadGLTFModel(mesh, "CADModels/Helmet.glb", wireColor);
+      } else if (model === "uuv") {
+        mesh = new THREE.Group();
+        loadGLTFModel(mesh, "CADModels/1_48_Mk13.glb", wireColor, 2.8);
+      } else if (model === "flashlight") {
+        mesh = new THREE.Group();
+        loadOBJModel(mesh, "CADModels/FlashLight.obj", wireColor);
+      } else if (model === "sphere") {
+        mesh = new THREE.Mesh(new THREE.IcosahedronGeometry(1.1, 1), wireMat);
+      } else if (model === "pyramid") {
+        mesh = new THREE.Mesh(new THREE.ConeGeometry(1, 1.4, 4, 1), wireMat);
+      } else if (model === "torus") {
+        mesh = new THREE.Mesh(new THREE.TorusKnotGeometry(0.9, 0.28, 140, 22), wireMat);
+      } else if (model === "helix") {
+        const pts = [];
+        const turns = 3.5;
+        for (let i = 0; i < 180; i++) {
+          const t = (i / 180) * Math.PI * 2 * turns;
+          pts.push(new THREE.Vector3(Math.cos(t) * 0.8, -0.9 + (i / 180) * 1.8, Math.sin(t) * 0.8));
+        }
+        const path = new THREE.CatmullRomCurve3(pts);
+        mesh = new THREE.Mesh(
+          new THREE.TubeGeometry(path, 160, 0.04, 8, false),
+          makeSurfaceMaterial(wireColor)
+        );
+      } else {
+        mesh = new THREE.Mesh(new THREE.BoxGeometry(1.4, 0.9, 1.1), wireMat);
+      }
+      mesh.rotation.copy(homeRotation);
+      mesh.userData.homeRotation = homeRotation.clone();
+      scene.add(mesh);
+
+      meshes.push(mesh);
+      rendererCache.set(canvas, { renderer, camera, mesh, controls });
+      sceneCache.set(canvas, scene);
+      controlsCache.set(canvas, controls);
+    };
+
+    const resizeRenderer = (canvas) => {
+      const { renderer, camera } = rendererCache.get(canvas);
+      const pixelRatio = renderer.getPixelRatio();
+      const width = Math.floor(canvas.clientWidth * pixelRatio);
+      const height = Math.floor(canvas.clientHeight * pixelRatio);
+      const needsResize = canvas.width !== width || canvas.height !== height;
+      if (needsResize) {
+        renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
+        camera.aspect = canvas.clientWidth / canvas.clientHeight;
+        camera.updateProjectionMatrix();
+      }
+    };
+
+    const render = () => {
+      projects.forEach(project => {
+        const canvas = project.querySelector("canvas");
+        if (!rendererCache.has(canvas)) return;
+        const { renderer, camera, mesh, controls } = rendererCache.get(canvas);
+        resizeRenderer(canvas);
+        controls.update();
+        if (mesh) {
+          const spinAxis = project.dataset.spin ? project.dataset.spin.split(',').map(Number) : [0, 1, 0];
+          mesh.rotation.x += 0.002 * spinAxis[0];
+          mesh.rotation.y += 0.002 * spinAxis[1];
+          mesh.rotation.z += 0.002 * spinAxis[2];
+        }
+        const scene = sceneCache.get(canvas);
+        renderer.render(scene, camera);
+      });
+      requestAnimationFrame(render);
+    };
+
+    const reveal = (project, visible) => {
+      gsap.to(project, {
+        opacity: visible ? 1 : 0.35,
+        duration: 0.8,
+        ease: "power2.out"
+      });
+      const canvas = project.querySelector("canvas");
+      const cache = rendererCache.get(canvas);
+      if (cache) {
+        cache.renderer.domElement.style.filter = visible ? "brightness(1)" : "brightness(0.25)";
+      }
+    };
+
+    const flashSpin = (project) => {
+      const canvas = project.querySelector("canvas");
+      const cache = rendererCache.get(canvas);
+      if (cache && cache.mesh) {
+        const home = cache.mesh.userData.homeRotation || new THREE.Euler(0, 0, 0);
+        gsap.fromTo(
+          cache.mesh.rotation,
+          { x: home.x + Math.PI * 0.12, y: home.y + Math.PI * 1.15, z: home.z },
+          { x: home.x, y: home.y, z: home.z, duration: 1.25, ease: "power3.out" }
+        );
+      }
+    };
+
+    const setAccent = (accent) => {
+      if (!colorWash) return;
+      const gradient = `
+        radial-gradient(circle at 20% 22%, ${accent}22, transparent 32%),
+        radial-gradient(circle at 80% 18%, ${accent}18, transparent 42%),
+        linear-gradient(130deg, ${accent}28, transparent 70%)
+      `;
+      gsap.to(colorWash, { background: gradient, duration: 0.9, ease: "power2.out" });
+    };
+
+    const updateWireColors = () => {
+      const wireColor = getWireColor();
+      meshes.forEach(mesh => applyMaterial(mesh, wireColor));
+    };
+
+    const rebuildScenes = () => {
+      projects.forEach(project => {
+        const canvas = project.querySelector("canvas");
+        const cache = rendererCache.get(canvas);
+        if (cache) {
+          cache.renderer.dispose();
+          rendererCache.delete(canvas);
+          sceneCache.delete(canvas);
+          controlsCache.delete(canvas);
+        }
+      });
+      meshes.length = 0;
+      projects.forEach(ensureScene);
+    };
+
+    const ensureScene = (project) => {
+      const canvas = project.querySelector("canvas");
+      if (!rendererCache.has(canvas)) {
+        createScene(canvas, project.dataset.model, parseRotation(project.dataset.rot));
+      }
+    };
+
+    const resetView = (project) => {
+      const canvas = project.querySelector("canvas");
+      const cache = rendererCache.get(canvas);
+      if (cache && cache.controls) {
+        cache.controls.reset();
+      }
+    };
+
+    const setupScroll = () => {
+      projects.forEach(project => {
+        const thumb = project.querySelector(".thumb");
+        const meta = project.querySelector(".meta");
+
+        ScrollTrigger.create({
+          trigger: project,
+          start: "top 80%",
+          end: "bottom 50%",
+          scrub: true,
+          onEnter: () => { ensureScene(project); reveal(project, true); flashSpin(project); resetView(project); setAccent(project.dataset.accent || "#7ce8ff"); },
+          onEnterBack: () => { ensureScene(project); reveal(project, true); flashSpin(project); resetView(project); setAccent(project.dataset.accent || "#7ce8ff"); },
+          onLeave: () => reveal(project, false),
+          onLeaveBack: () => reveal(project, false)
+        });
+
+        gsap.timeline({
+          scrollTrigger: {
+            trigger: project,
+            start: "top 85%",
+            end: "bottom 50%",
+            scrub: true
+          }
+        })
+          .fromTo(meta, { opacity: 0.55 }, { opacity: 1, ease: "power2.out" }, 0)
+          .fromTo(thumb, { scale: 0.96, filter: "brightness(0.7)" }, { scale: 1.05, filter: "brightness(1)", ease: "power2.out" }, 0);
+
+        project.style.opacity = 0.4;
+        project.style.transform = "translateY(30px)";
+
+        const href = project.dataset.href;
+        if (href) {
+          project.addEventListener("click", (e) => {
+            if (e.target.closest("canvas")) return;
+            window.location.href = href;
+          });
+          project.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              window.location.href = href;
+            }
+          });
+          project.setAttribute("tabindex", "0");
+          project.setAttribute("role", "link");
+          project.setAttribute("aria-label", `Open ${project.querySelector("h2")?.textContent || "project"}`);
+        }
+      });
+      ScrollTrigger.refresh();
+    };
+
+    setupScroll();
+
+
+    // Menu logic
+    const menuBtn = document.querySelector(".menu-btn");
+    const menuPanel = document.querySelector(".menu-panel");
+
+    if (menuBtn && menuPanel) {
+      menuBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        menuPanel.classList.toggle("active");
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!menuPanel.contains(e.target) && !menuBtn.contains(e.target)) {
+          menuPanel.classList.remove("active");
+        }
+      });
+
+      window.addEventListener("scroll", () => {
+        menuPanel.classList.remove("active");
+      }, { passive: true });
+    }
+
+    render();
+  </script>
+</body>
+
+</html>
