@@ -5,6 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Neptune's Lamp</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js" />
   <link rel="stylesheet" href="project-template.css" />
 </head>
 
@@ -26,7 +28,7 @@
     <section class="resume-grid" style="margin-top: 1rem;">
       <div class="resume-section">
         <h2>Model</h2>
-        <div class="model-view" data-src="CADModels/TridentObj.obj" data-rot="-90,0,-260" data-accent="#c2ff9b"
+        <div class="model-view" data-src="CADModels/Trident.web.glb" data-rot="-90,0,-260" data-accent="#c2ff9b"
           data-size="2.2">
           <canvas></canvas>
           <div class="hint">Drag to orbit · scroll to zoom</div>
@@ -59,7 +61,7 @@
       <div class="resume-section">
         <h2>Video</h2>
         <div class="video-embed">
-          <video controls loop muted autoplay playsinline preload="metadata">
+          <video controls loop muted playsinline preload="none" poster="NeptunePhotos/web/video-poster.jpg" data-autoplay>
             <source src="NeptunePhotos/Neptune's Lamp.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
@@ -68,22 +70,22 @@
       <div class="resume-section">
         <h2>Gallery</h2>
         <div class="gallery-grid">
-          <div class="mosaic-tile tall"><img src="NeptunePhotos/c0b8f152-6e5a-4274-8f95-eee0d850ef92_rw_3840 (1).jpg" alt="Neptune's Lamp" data-full="NeptunePhotos/c0b8f152-6e5a-4274-8f95-eee0d850ef92_rw_3840 (1).jpg" loading="lazy"
-              decoding="async"></div>
-          <div class="mosaic-tile tall"><img src="NeptunePhotos/a1c594e6-e3db-4e03-9f22-2507dc397b84_rw_1920.jpg" alt="Neptune's Lamp" data-full="NeptunePhotos/a1c594e6-e3db-4e03-9f22-2507dc397b84_rw_1920.jpg" loading="lazy"
-              decoding="async"></div>
-          <div class="mosaic-tile tall"><img src="NeptunePhotos/1e6432f0-4e78-48be-bf74-75cd1bb81869_rw_3840.jpg" alt="Neptune's Lamp" data-full="NeptunePhotos/1e6432f0-4e78-48be-bf74-75cd1bb81869_rw_3840.jpg" loading="lazy"
-              decoding="async"></div>
-          <div class="mosaic-tile tall"><img src="NeptunePhotos/ba82b69f-d531-440b-9494-b4984bbc1e13_rw_3840.jpg" alt="Neptune's Lamp" data-full="NeptunePhotos/ba82b69f-d531-440b-9494-b4984bbc1e13_rw_3840.jpg" loading="lazy"
-              decoding="async"></div>
-          <div class="mosaic-tile tall"><img src="NeptunePhotos/02615661-5562-49b4-a5e7-5dd3a5dfad40_rw_1920.jpg" alt="Neptune's Lamp" data-full="NeptunePhotos/02615661-5562-49b4-a5e7-5dd3a5dfad40_rw_1920.jpg" loading="lazy"
-              decoding="async"></div>
-          <div class="mosaic-tile tall"><img src="NeptunePhotos/7cc59c6a-2dea-406e-9f23-814a4a5036be_rw_3840.jpg" alt="Neptune's Lamp" data-full="NeptunePhotos/7cc59c6a-2dea-406e-9f23-814a4a5036be_rw_3840.jpg" loading="lazy"
-              decoding="async"></div>
-          <div class="mosaic-tile tall"><img src="NeptunePhotos/33fb3ef9-34fb-4e36-85bf-be67305f4dac_rw_3840.jpg" alt="Neptune's Lamp" data-full="NeptunePhotos/33fb3ef9-34fb-4e36-85bf-be67305f4dac_rw_3840.jpg" loading="lazy"
-              decoding="async"></div>
-          <div class="mosaic-tile tall"><img src="NeptunePhotos/5f4f88fc-2cdf-4cea-958b-6fd5f45ab33c_rw_3840 (1).jpg" alt="Neptune's Lamp" data-full="NeptunePhotos/5f4f88fc-2cdf-4cea-958b-6fd5f45ab33c_rw_3840 (1).jpg" loading="lazy"
-              decoding="async"></div>
+          <div class="mosaic-tile tall"><img src="NeptunePhotos/web/c0b8f152-6e5a-4274-8f95-eee0d850ef92_rw_3840 (1)-sm.jpg" alt="Neptune's Lamp" data-full="NeptunePhotos/web/c0b8f152-6e5a-4274-8f95-eee0d850ef92_rw_3840 (1).jpg"
+              loading="lazy" decoding="async"></div>
+          <div class="mosaic-tile tall"><img src="NeptunePhotos/web/a1c594e6-e3db-4e03-9f22-2507dc397b84_rw_1920-sm.jpg" alt="Neptune's Lamp" data-full="NeptunePhotos/web/a1c594e6-e3db-4e03-9f22-2507dc397b84_rw_1920.jpg"
+              loading="lazy" decoding="async"></div>
+          <div class="mosaic-tile tall"><img src="NeptunePhotos/web/1e6432f0-4e78-48be-bf74-75cd1bb81869_rw_3840-sm.jpg" alt="Neptune's Lamp" data-full="NeptunePhotos/web/1e6432f0-4e78-48be-bf74-75cd1bb81869_rw_3840.jpg"
+              loading="lazy" decoding="async"></div>
+          <div class="mosaic-tile tall"><img src="NeptunePhotos/web/ba82b69f-d531-440b-9494-b4984bbc1e13_rw_3840-sm.jpg" alt="Neptune's Lamp" data-full="NeptunePhotos/web/ba82b69f-d531-440b-9494-b4984bbc1e13_rw_3840.jpg"
+              loading="lazy" decoding="async"></div>
+          <div class="mosaic-tile tall"><img src="NeptunePhotos/web/02615661-5562-49b4-a5e7-5dd3a5dfad40_rw_1920-sm.jpg" alt="Neptune's Lamp" data-full="NeptunePhotos/web/02615661-5562-49b4-a5e7-5dd3a5dfad40_rw_1920.jpg"
+              loading="lazy" decoding="async"></div>
+          <div class="mosaic-tile tall"><img src="NeptunePhotos/web/7cc59c6a-2dea-406e-9f23-814a4a5036be_rw_3840-sm.jpg" alt="Neptune's Lamp" data-full="NeptunePhotos/web/7cc59c6a-2dea-406e-9f23-814a4a5036be_rw_3840.jpg"
+              loading="lazy" decoding="async"></div>
+          <div class="mosaic-tile tall"><img src="NeptunePhotos/web/33fb3ef9-34fb-4e36-85bf-be67305f4dac_rw_3840-sm.jpg" alt="Neptune's Lamp" data-full="NeptunePhotos/web/33fb3ef9-34fb-4e36-85bf-be67305f4dac_rw_3840.jpg"
+              loading="lazy" decoding="async"></div>
+          <div class="mosaic-tile tall"><img src="NeptunePhotos/web/5f4f88fc-2cdf-4cea-958b-6fd5f45ab33c_rw_3840 (1)-sm.jpg" alt="Neptune's Lamp" data-full="NeptunePhotos/web/5f4f88fc-2cdf-4cea-958b-6fd5f45ab33c_rw_3840 (1).jpg"
+              loading="lazy" decoding="async"></div>
         </div>
       </div>
     </section>

@@ -5,7 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Seth Rhodes</title>
-  <link rel="preconnect" href="https://unpkg.com" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js" />
   <style>
     :root {
       --bg: #0a0a0a;
@@ -480,8 +481,8 @@
   <script type="module">
     import * as THREE from "three";
     import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/controls/OrbitControls.js";
-    import { OBJLoader } from "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/OBJLoader.js";
     import { GLTFLoader } from "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/GLTFLoader.js";
+    import { MeshoptDecoder } from "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/libs/meshopt_decoder.module.js";
     import { gsap } from "https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js";
     import { ScrollTrigger } from "https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTrigger.js";
 
@@ -493,8 +494,7 @@
     const rendererCache = new WeakMap();
     const sceneCache = new WeakMap();
     const controlsCache = new WeakMap();
-    const objLoader = new OBJLoader();
-    const gltfLoader = new GLTFLoader();
+    const gltfLoader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
     const meshes = [];
 
     const getWireColor = () => 0xffffff;
@@ -563,15 +563,6 @@
       );
     };
 
-    const loadOBJModel = (group, path, color) => {
-      objLoader.load(path, (obj) => {
-        applyMaterial(obj, color);
-        fitObjectToFrame(obj);
-        group.clear();
-        group.add(obj);
-      });
-    };
-
     const loadGLTFModel = (group, path, color, targetSize) => {
       gltfLoader.load(path, (gltf) => {
         const obj = gltf.scene;
@@ -605,25 +596,25 @@
       let mesh;
       if (model === "trident") {
         mesh = new THREE.Group();
-        loadOBJModel(mesh, "CADModels/TridentObj.obj", wireColor);
+        loadGLTFModel(mesh, "CADModels/Trident.web.glb", wireColor);
       } else if (model === "omSculpture") {
         mesh = new THREE.Group();
-        loadOBJModel(mesh, "CADModels/OmSculpture.obj", wireColor);
+        loadGLTFModel(mesh, "CADModels/OmSculpture.web.glb", wireColor);
       } else if (model === "motorsports") {
         mesh = new THREE.Group();
-        loadOBJModel(mesh, "CADModels/Motorsports.obj", wireColor);
+        loadGLTFModel(mesh, "CADModels/Motorsports.web.glb", wireColor);
       } else if (model === "helmet") {
         mesh = new THREE.Group();
-        loadGLTFModel(mesh, "CADModels/Helmet.glb", wireColor);
+        loadGLTFModel(mesh, "CADModels/Helmet.web.glb", wireColor);
       } else if (model === "uuv") {
         mesh = new THREE.Group();
-        loadGLTFModel(mesh, "CADModels/1_48_Mk13.glb", wireColor, 2.8);
+        loadGLTFModel(mesh, "CADModels/SpiderEgg.glb", wireColor, 2.6);
       } else if (model === "vwDoor") {
         mesh = new THREE.Group();
         loadGLTFModel(mesh, "CADModels/VWDoor.glb", wireColor, 1.9);
       } else if (model === "flashlight") {
         mesh = new THREE.Group();
-        loadOBJModel(mesh, "CADModels/FlashLight.obj", wireColor);
+        loadGLTFModel(mesh, "CADModels/FlashLight.web.glb", wireColor);
       } else if (model === "sphere") {
         mesh = new THREE.Mesh(new THREE.IcosahedronGeometry(1.1, 1), wireMat);
       } else if (model === "pyramid") {
@@ -668,10 +659,16 @@
       }
     };
 
+    const onScreen = new Set();
+    const visibility = new IntersectionObserver(entries => {
+      entries.forEach(entry => entry.isIntersecting ? onScreen.add(entry.target) : onScreen.delete(entry.target));
+    });
+    projects.forEach(project => visibility.observe(project));
+
     const render = () => {
       projects.forEach(project => {
         const canvas = project.querySelector("canvas");
-        if (!rendererCache.has(canvas)) return;
+        if (!rendererCache.has(canvas) || !onScreen.has(project)) return;
         const { renderer, camera, mesh, controls } = rendererCache.get(canvas);
         resizeRenderer(canvas);
         controls.update();
