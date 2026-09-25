@@ -61,15 +61,20 @@ const spiderSeq = {
 };
 
 const HATCH_OPEN = THREE.MathUtils.degToRad(120);
-const HOVER = [new THREE.Vector3(0.45, 0.9, 0.75), new THREE.Vector3(0.05, 1.15, -0.35), new THREE.Vector3(-0.45, 0.8, 0.45)];
+// Hover offsets from each drone's bay slot (nose-first order), fanned out above the vehicle
+const HOVER = [
+  [0.35, 0.85, 0.7], [0.2, 1.15, -0.4], [0.05, 0.95, 0.25],
+  [-0.1, 1.25, 0.6], [-0.25, 0.8, -0.2], [-0.4, 1.05, 0.45],
+].map(([x, y, z]) => new THREE.Vector3(x, y, z));
 const droneSeq = {
-  duration: 3.6,
+  duration: 3.9,
   pose(time, forward) {
     const h = doorEnvelope(time, this.duration, 0.8, 0.8);
     parts.hatches.forEach(({ node, sign }) => { node.rotation.x = sign * HATCH_OPEN * h; });
+    const n = parts.drones.length;
     parts.drones.forEach((drone, i) => {
-      const order = forward ? i : 2 - i;
-      const t = ease(clamp01((time - 0.8 - order * 0.25) / 1.2));
+      const order = forward ? i : n - 1 - i;
+      const t = ease(clamp01((time - 0.8 - order * 0.18) / 1.1));
       drone.out = forward ? t : 1 - t;
     });
   }
@@ -166,7 +171,7 @@ const loop = (now) => {
       const bob = out * Math.sin(elapsed * 2.2 + i * 1.7) * 0.03;
       node.position.copy(home).addScaledVector(HOVER[i], out);
       node.position.y += bob;
-      node.rotation.set(0, out * (0.6 - i * 0.5), out * Math.sin(elapsed * 1.3 + i) * 0.06);
+      node.rotation.set(0, out * Math.sin(i * 2.4) * 0.8, out * Math.sin(elapsed * 1.3 + i) * 0.06);
       props.forEach(p => { p.rotation.y += out > 0.001 ? dt * 40 : 0; });
     });
   }
