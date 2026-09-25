@@ -87,6 +87,37 @@
       font-size: 0.9rem;
     }
 
+    .body-copy .mosaic-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .body-copy .mosaic-tile {
+      margin-top: 0.8rem;
+      max-width: 720px;
+      aspect-ratio: auto;
+      cursor: zoom-in;
+    }
+
+    @media (max-width: 600px) {
+      .body-copy .mosaic-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .body-copy .mosaic-grid {
+      align-items: start;
+    }
+
+    .body-copy .mosaic-tile img {
+      width: auto;
+      max-width: 100%;
+      max-height: 460px;
+      height: auto;
+      display: block;
+      background: #fff;
+      border-radius: 10px;
+    }
+
     .body-copy p,
     .body-copy li {
       color: var(--muted);
@@ -103,9 +134,9 @@
     <section class="hero">
       <h1>Multi-Axis Door — Volkswagen</h1>
       <p>Stanford Mechanical Engineering senior capstone in partnership with the Volkswagen Innovation and Engineering
-        Center California (IECC). Instead of swinging on a hinge, the door translates outward and then forward along the
-        body, clearing the entire aperture so drivers with reduced mobility can get in and out without fighting a door
-        swing or a tight parking space.</p>
+        Center California (IECC). We built a sliding door system that works like a van's automatic door, but for the
+        front passenger seat. Instead of swinging on a hinge, the door first pushes straight out from the body and then
+        slides toward the front of the car. That clears the whole opening for drivers with reduced mobility.</p>
       <div class="tags">
         <span class="pill">Automotive</span>
         <span class="pill">Accessibility</span>
@@ -130,38 +161,76 @@
         <h2>At a Glance</h2>
         <div class="stat-row">
           <div class="stat"><strong>+253%</strong><span>usable entrance volume vs. a hinged door</span></div>
-          <div class="stat"><strong>2 axes</strong><span>outward, then forward translation</span></div>
+          <div class="stat"><strong>2 motions</strong><span>push out (y-axis), then slide forward (x-axis)</span></div>
+          <div class="stat"><strong>4 subsystems</strong><span>push-pull, pivot arm, chain &amp; sprocket, alignment</span></div>
           <div class="stat"><strong>1:1</strong><span>full-scale working prototype</span></div>
-          <div class="stat"><strong>Sep ’25 – Mar ’26</strong><span>Stanford ME capstone</span></div>
         </div>
       </div>
 
       <div class="resume-section body-copy">
-        <h2>The Problem</h2>
-        <p>A conventional hinged door sweeps an arc beside the car. For drivers with reduced mobility, that arc is the
-          problem: the open door blocks the path to the seat, needs a lot of side clearance, and forces people to twist
-          around it. Aftermarket fixes such as ramps and lifts add cost and complexity and are hard to build into the
-          vehicle at the factory.</p>
+        <h2>How It Moves</h2>
+        <p><strong>Motion A:</strong> the Push-Pull Mechanism drives the door straight out from the body along the
+          y-axis, clearing the frame. <strong>Motion B:</strong> the Chain &amp; Sprocket Mechanism then slides the door
+          along the x-axis toward the front of the car, leaving the whole opening clear.</p>
+        <div class="mosaic">
+          <div class="mosaic-grid">
+            <div class="mosaic-tile">
+              <img src="VWDoorPhotos/fig5-motion-a.jpg" alt="Front view of the rig before and after the door pushes out"
+                data-full="VWDoorPhotos/fig5-motion-a.jpg" loading="lazy" decoding="async">
+            </div>
+            <div class="mosaic-tile">
+              <img src="VWDoorPhotos/fig6-motion-b.jpg" alt="Side view of the door sliding forward along the rig"
+                data-full="VWDoorPhotos/fig6-motion-b.jpg" loading="lazy" decoding="async">
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="resume-section body-copy">
-        <h2>The Design</h2>
-        <p>The door moves on two axes. First, carriages on guide rails at the sill and header push it straight out,
-          clearing the body. Then it slides forward, parallel to the vehicle, leaving the whole aperture open with nothing
-          sticking out into the entry path. Because the door moves in straight lines instead of an arc, it needs much less
-          side clearance and opens up far more usable entrance volume.</p>
-        <ul>
-          <li>Outward-then-forward translation replaces the hinge arc</li>
-          <li>Upper and lower guide rails keep the door parallel to the body throughout travel</li>
-          <li>Opening designed around a seated occupant's ingress and egress path</li>
-        </ul>
+        <h2>Subsystems</h2>
+        <div class="resume-list">
+          <div class="resume-item">
+            <div class="topline emphasize">Push-Pull Mechanism</div>
+            <p>Creates the outward motion along the y-axis. It is a linear actuator driving an 80/20 aluminum frame
+              under the floor, with rollers that carry the door's lower rail.</p>
+            <div class="mosaic-tile"><img src="VWDoorPhotos/fig9-push-pull.jpg" alt="Location of the push-pull mechanism"
+                data-full="VWDoorPhotos/fig9-push-pull.jpg" loading="lazy" decoding="async"></div>
+          </div>
+          <div class="resume-item">
+            <div class="topline emphasize">Pivot Arm</div>
+            <p>An L-shaped hinge mounted to the A-pillar and pinned to the door. It is the key link between the push-out
+              and sliding motions. It lets the door move outward along the y-axis while supporting it, keeps it from
+              rotating about the x-axis, and carries the Chain &amp; Sprocket Mechanism, so the handoff between the two
+              motions stays smooth and controlled.</p>
+            <div class="mosaic-tile"><img src="VWDoorPhotos/fig10-pivot-arm.jpg" alt="Pivot arm close-up and location"
+                data-full="VWDoorPhotos/fig10-pivot-arm.jpg" loading="lazy" decoding="async"></div>
+          </div>
+          <div class="resume-item">
+            <div class="topline emphasize">Chain &amp; Sprocket Mechanism</div>
+            <p>A motor-driven chain and sprocket mounted on an 80/20 rail, with the chain attached directly to the door
+              frame. Once the door is pushed out, it drives the door along the x-axis toward the front of the car at a
+              steady, controlled speed, finishing the automatic opening sequence.</p>
+            <div class="mosaic-tile"><img src="VWDoorPhotos/fig11-chain-sprocket.jpg"
+                alt="Close-up of the chain and sprocket mechanism" data-full="VWDoorPhotos/fig11-chain-sprocket.jpg"
+                loading="lazy" decoding="async"></div>
+          </div>
+          <div class="resume-item">
+            <div class="topline emphasize">Alignment Actuator</div>
+            <p>A small linear actuator under the pivot bracket on the A-pillar. When engaged, it drives a locating pin up
+              into the Pivot Arm, holding the door in line with the frame.</p>
+            <div class="mosaic-tile"><img src="VWDoorPhotos/fig12-alignment-actuator.jpg"
+                alt="Close-up of the alignment actuator in the engaged position"
+                data-full="VWDoorPhotos/fig12-alignment-actuator.jpg" loading="lazy" decoding="async"></div>
+          </div>
+        </div>
       </div>
 
       <div class="resume-section body-copy">
         <h2>Process</h2>
         <p>We started with user research on how people with reduced mobility get in and out of vehicles, turned those
-          findings into requirements, and iterated from concept mechanisms to a validated full-scale prototype of a working
-          mechanical system, with guidance from Volkswagen IECC engineers throughout.</p>
+          findings into requirements, and built a full-scale wooden test rig of a front-passenger opening. We then brought
+          it from concept to a validated, working mechanical system, with guidance from Volkswagen IECC engineers
+          throughout.</p>
       </div>
 
       <div class="resume-section body-copy">
@@ -194,7 +263,7 @@
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(40, 16 / 9, 0.1, 100);
-    camera.position.set(2.6, 1.3, 3.2);
+    camera.position.set(1.6, 1.2, 3.4);
 
     const controls = new OrbitControls(camera, canvas);
     controls.enableDamping = true;
@@ -205,62 +274,72 @@
     controls.autoRotateSpeed = 0.5;
 
     const color = 0xffffff;
+    const accent = 0x8fb8ff;
     const makeMaterial = (highlight) => new THREE.MeshPhysicalMaterial({
-      color: highlight ? 0x8fb8ff : color,
+      color: highlight ? accent : color,
       roughness: 0.35,
       transparent: true,
-      opacity: highlight ? 0.55 : 0.4,
-      emissive: new THREE.Color(highlight ? 0x8fb8ff : color),
+      opacity: highlight ? 0.5 : 0.35,
+      emissive: new THREE.Color(highlight ? accent : color),
       emissiveIntensity: 0.18,
       side: THREE.DoubleSide,
       depthWrite: false
     });
 
-    // Parts that ride with the door, animated between closed and open
-    const MOVING = ["DoorPanel", "DoorHandle", "Carriage", "OutwardArm", "ArmSleeve", "ArmTie"];
-    const OPEN_OFFSET = new THREE.Vector3(0.62, 0, 0.42);
-    const movers = [];
+    // Offsets between the exported open pose and the closed pose (model units)
+    const DOOR_OUT = 0.15, DOOR_FWD = -0.55;
+    const ARM_TIP = new THREE.Vector3(0.1, 0, 0.2);
+    // Arm angle at which the tip sits DOOR_OUT closer to the body
+    const solveClosedAngle = () => {
+      let lo = 0, hi = Math.PI / 2;
+      for (let i = 0; i < 40; i++) {
+        const mid = (lo + hi) / 2;
+        const z = -ARM_TIP.x * Math.sin(mid) + ARM_TIP.z * Math.cos(mid);
+        if (z > ARM_TIP.z - DOOR_OUT) lo = mid; else hi = mid;
+      }
+      return lo;
+    };
+    const CLOSED_ANGLE = solveClosedAngle();
+    const parts = {};
 
     new GLTFLoader().load("CADModels/VWDoor.glb", (gltf) => {
       const model = gltf.scene;
       model.traverse(node => {
         if (!node.isMesh) return;
-        const moving = MOVING.some(name => node.name.startsWith(name));
+        const moving = !node.name.startsWith("Frame");
         node.material = makeMaterial(moving);
-        const edges = new THREE.LineSegments(
+        node.add(new THREE.LineSegments(
           new THREE.EdgesGeometry(node.geometry, 30),
-          new THREE.LineBasicMaterial({ color: moving ? 0x8fb8ff : color, transparent: true, opacity: 0.85 })
-        );
-        node.add(edges);
-        if (moving) {
-          const scaleZ = node.name.startsWith("OutwardArm") || node.name.startsWith("ArmSleeve");
-          movers.push({ node, open: node.position.clone(), scaleZ });
-        }
+          new THREE.LineBasicMaterial({ color: moving ? accent : color, transparent: true, opacity: 0.85 })
+        ));
+      });
+      ["Door", "PushPull", "PivotArm", "Carriage"].forEach(name => {
+        const node = model.getObjectByName(name);
+        if (node) parts[name] = { node, open: node.position.clone() };
       });
 
       const box = new THREE.Box3().setFromObject(model);
       const size = box.getSize(new THREE.Vector3());
-      const scale = 3 / Math.max(size.x, size.y, size.z);
-      model.scale.setScalar(scale);
+      model.scale.setScalar(2.3 / Math.max(size.x, size.y, size.z));
       box.setFromObject(model);
       model.position.sub(box.getCenter(new THREE.Vector3()));
       scene.add(model);
     });
 
-    // t = 1 fully open, 0 closed. Phase 1 (0–0.5) moves outward, phase 2 (0.5–1) moves forward.
+    // t = 1 fully open, 0 closed. Motion A (0–0.5) pushes out, Motion B (0.5–1) slides forward.
     let t = 1, target = 1;
     const ease = (x) => x * x * (3 - 2 * x);
     const applyPose = () => {
+      if (!parts.Door) return;
       const out = ease(Math.min(1, t * 2));
       const fwd = ease(Math.max(0, t * 2 - 1));
-      movers.forEach(({ node, open, scaleZ }) => {
-        node.position.set(
-          open.x - OPEN_OFFSET.x * (1 - fwd),
-          open.y,
-          scaleZ ? open.z - (OPEN_OFFSET.z / 2) * (1 - out) : open.z - OPEN_OFFSET.z * (1 - out)
-        );
-        if (scaleZ) node.scale.z = Math.max(0.05, out);
-      });
+      const { Door, PushPull, PivotArm, Carriage } = parts;
+      Door.node.position.set(Door.open.x - DOOR_FWD * (1 - fwd), Door.open.y, Door.open.z - DOOR_OUT * (1 - out));
+      PushPull.node.position.z = PushPull.open.z - DOOR_OUT * (1 - out);
+      const angle = CLOSED_ANGLE * (1 - out);
+      PivotArm.node.rotation.y = angle;
+      const tip = ARM_TIP.clone().applyAxisAngle(new THREE.Vector3(0, 1, 0), angle).sub(ARM_TIP);
+      Carriage.node.position.set(Carriage.open.x + tip.x, Carriage.open.y, Carriage.open.z + tip.z);
     };
 
     toggle.addEventListener("click", () => {
@@ -290,6 +369,7 @@
     };
     loop();
   </script>
+  <script src="lightbox.js"></script>
 </body>
 
 </html>
