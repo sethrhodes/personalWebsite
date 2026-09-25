@@ -5,6 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Search &amp; Rescue AR</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js" />
   <link rel="stylesheet" href="project-template.css" />
 </head>
 
@@ -27,7 +29,7 @@
     <section class="resume-grid" style="margin-top: 1rem;">
       <div class="resume-section">
         <h2>Model</h2>
-        <div class="model-view" data-src="CADModels/Helmet.glb" data-rot="-90,0,0" data-accent="#7ce8ff"
+        <div class="model-view" data-src="CADModels/Helmet.web.glb" data-rot="-90,0,0" data-accent="#7ce8ff"
           data-size="2.2">
           <canvas></canvas>
           <div class="hint">Drag to orbit · scroll to zoom</div>
@@ -47,7 +49,7 @@
       <div class="resume-section">
         <h2>Demo</h2>
         <div class="video-embed">
-          <video controls loop muted autoplay playsinline preload="metadata">
+          <video controls loop muted playsinline preload="none" poster="SearchPhoto/web/demo-poster.jpg" data-autoplay>
             <source src="SearchPhoto/S&amp;R_AR.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
@@ -74,10 +76,10 @@
       <div class="resume-section">
         <h2>Gallery</h2>
         <div class="gallery-grid">
-          <div class="mosaic-tile tall"><img src="SearchPhoto/Front.jpg" alt="Front view of the helmet-mounted AR system" data-full="SearchPhoto/Front.jpg" loading="lazy"
-              decoding="async"></div>
-          <div class="mosaic-tile tall"><img src="SearchPhoto/Side.jpg" alt="Side view of the helmet-mounted AR system" data-full="SearchPhoto/Side.jpg" loading="lazy"
-              decoding="async"></div>
+          <div class="mosaic-tile tall"><img src="SearchPhoto/web/Front-sm.jpg" alt="Front view of the helmet-mounted AR system" data-full="SearchPhoto/web/Front.jpg"
+              loading="lazy" decoding="async"></div>
+          <div class="mosaic-tile tall"><img src="SearchPhoto/web/Side-sm.jpg" alt="Side view of the helmet-mounted AR system" data-full="SearchPhoto/web/Side.jpg"
+              loading="lazy" decoding="async"></div>
         </div>
       </div>
     </section>

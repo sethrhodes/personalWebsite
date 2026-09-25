@@ -5,6 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Spider Egg</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js" />
   <link rel="stylesheet" href="project-template.css" />
 </head>
 
@@ -27,10 +29,10 @@
     <section class="resume-grid" style="margin-top: 1rem;">
       <div class="resume-section">
         <h2>Model</h2>
-        <div class="model-view" data-src="CADModels/1_48_Mk13.glb" data-rot="0,0,0" data-accent="#ff9bd5"
-          data-size="2.8">
+        <div class="model-view" id="spider-view">
           <canvas></canvas>
           <div class="hint">Drag to orbit · scroll to zoom</div>
+          <button id="spider-toggle" type="button" disabled>Deploy Spiders</button>
         </div>
       </div>
 
@@ -47,7 +49,7 @@
       <div class="resume-section">
         <h2>Demo</h2>
         <div class="video-embed">
-          <video controls loop muted autoplay playsinline preload="metadata">
+          <video controls loop muted playsinline preload="none" poster="SpiderPhoto/web/demo-poster.jpg" data-autoplay>
             <source src="SpiderPhoto/Demo.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
@@ -74,9 +76,9 @@
       </div>
       <div class="resume-section">
         <h2>Spec Sheets</h2>
-        <div class="spec-sheet"><img src="SpiderPhoto/SpiderEggSpecSheet.png" alt="Spider Egg spec sheet"
+        <div class="spec-sheet"><img src="SpiderPhoto/web/SpiderEggSpecSheet.jpg" alt="Spider Egg spec sheet"
             data-full="SpiderPhoto/SpiderEggSpecSheet.png" loading="lazy" decoding="async"></div>
-        <div class="spec-sheet"><img src="SpiderPhoto/SpiderSpecSheet.png" alt="Spider spec sheet"
+        <div class="spec-sheet"><img src="SpiderPhoto/web/SpiderSpecSheet.jpg" alt="Spider spec sheet"
             data-full="SpiderPhoto/SpiderSpecSheet.png" loading="lazy" decoding="async"></div>
       </div>
     </section>
@@ -89,7 +91,7 @@
       }
     }
   </script>
-  <script type="module" src="project-viewer.js"></script>
+  <script type="module" src="spider-egg-viewer.js"></script>
   <script src="lightbox.js"></script>
 </body>
 

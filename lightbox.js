@@ -40,4 +40,16 @@ document.addEventListener("DOMContentLoaded", () => {
       lightbox.classList.add("active");
     });
   });
+
+  // Start muted demo videos only once they scroll into view, and pause them off-screen
+  const autoplayVideos = document.querySelectorAll("video[data-autoplay]");
+  if (autoplayVideos.length) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(({ target, isIntersecting }) => {
+        if (isIntersecting) target.play().catch(() => {});
+        else target.pause();
+      });
+    }, { threshold: 0.35 });
+    autoplayVideos.forEach(video => observer.observe(video));
+  }
 });

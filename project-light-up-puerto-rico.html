@@ -5,6 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Light Up Puerto Rico</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js" />
   <link rel="stylesheet" href="project-template.css" />
 </head>
 
@@ -27,7 +29,7 @@
     <section class="resume-grid" style="margin-top: 1rem;">
       <div class="resume-section">
         <h2>Model</h2>
-        <div class="model-view" data-src="CADModels/FlashLight.obj" data-rot="-90,0,0" data-accent="#9bd9ff"
+        <div class="model-view" data-src="CADModels/FlashLight.web.glb" data-rot="-90,0,0" data-accent="#9bd9ff"
           data-size="2.2">
           <canvas></canvas>
           <div class="hint">Drag to orbit · scroll to zoom</div>
@@ -63,22 +65,22 @@
       <div class="resume-section">
         <h2>Gallery</h2>
         <div class="gallery-grid">
-          <div class="mosaic-tile"><img src="LightPhoto/20c060a6-b0e6-4235-8fda-afd449472fc2_rw_3840.jpeg" alt="Light Up Puerto Rico" data-full="LightPhoto/20c060a6-b0e6-4235-8fda-afd449472fc2_rw_3840.jpeg" loading="lazy"
-              decoding="async"></div>
-          <div class="mosaic-tile"><img src="LightPhoto/0d07c886-33a8-42fd-b2cf-d41dfeb0e376_rw_1920.jpg" alt="Light Up Puerto Rico" data-full="LightPhoto/0d07c886-33a8-42fd-b2cf-d41dfeb0e376_rw_1920.jpg" loading="lazy"
-              decoding="async"></div>
-          <div class="mosaic-tile"><img src="LightPhoto/d5da65f4-849e-46d1-8330-aced6f60d758_rw_3840.jpeg" alt="Light Up Puerto Rico" data-full="LightPhoto/d5da65f4-849e-46d1-8330-aced6f60d758_rw_3840.jpeg" loading="lazy"
-              decoding="async"></div>
-          <div class="mosaic-tile"><img src="LightPhoto/9d438d84-3560-45f2-9302-32a8c58c3b9f_rw_3840.jpeg" alt="Light Up Puerto Rico" data-full="LightPhoto/9d438d84-3560-45f2-9302-32a8c58c3b9f_rw_3840.jpeg" loading="lazy"
-              decoding="async"></div>
-          <div class="mosaic-tile"><img src="LightPhoto/3b96759d-da14-43ef-8f70-dbc1c751bc1c_rw_3840.jpeg" alt="Light Up Puerto Rico" data-full="LightPhoto/3b96759d-da14-43ef-8f70-dbc1c751bc1c_rw_3840.jpeg" loading="lazy"
-              decoding="async"></div>
-          <div class="mosaic-tile"><img src="LightPhoto/ed5709ec-d4d1-4aab-b4b1-d6766bcb1f47_rw_3840.jpeg" alt="Light Up Puerto Rico" data-full="LightPhoto/ed5709ec-d4d1-4aab-b4b1-d6766bcb1f47_rw_3840.jpeg" loading="lazy"
-              decoding="async"></div>
-          <div class="mosaic-tile"><img src="LightPhoto/c4f4adf2-5897-4bbb-9b95-01b7a9fb95f0_rw_3840.jpeg" alt="Light Up Puerto Rico" data-full="LightPhoto/c4f4adf2-5897-4bbb-9b95-01b7a9fb95f0_rw_3840.jpeg" loading="lazy"
-              decoding="async"></div>
-          <div class="mosaic-tile"><img src="LightPhoto/8be5dfb0-6b37-4334-9ace-553f6fea2cbb_rw_3840.jpeg" alt="Light Up Puerto Rico" data-full="LightPhoto/8be5dfb0-6b37-4334-9ace-553f6fea2cbb_rw_3840.jpeg" loading="lazy"
-              decoding="async"></div>
+          <div class="mosaic-tile"><img src="LightPhoto/web/20c060a6-b0e6-4235-8fda-afd449472fc2_rw_3840-sm.jpg" alt="Light Up Puerto Rico" data-full="LightPhoto/web/20c060a6-b0e6-4235-8fda-afd449472fc2_rw_3840.jpg"
+              loading="lazy" decoding="async"></div>
+          <div class="mosaic-tile"><img src="LightPhoto/web/0d07c886-33a8-42fd-b2cf-d41dfeb0e376_rw_1920-sm.jpg" alt="Light Up Puerto Rico" data-full="LightPhoto/web/0d07c886-33a8-42fd-b2cf-d41dfeb0e376_rw_1920.jpg"
+              loading="lazy" decoding="async"></div>
+          <div class="mosaic-tile"><img src="LightPhoto/web/d5da65f4-849e-46d1-8330-aced6f60d758_rw_3840-sm.jpg" alt="Light Up Puerto Rico" data-full="LightPhoto/web/d5da65f4-849e-46d1-8330-aced6f60d758_rw_3840.jpg"
+              loading="lazy" decoding="async"></div>
+          <div class="mosaic-tile"><img src="LightPhoto/web/9d438d84-3560-45f2-9302-32a8c58c3b9f_rw_3840-sm.jpg" alt="Light Up Puerto Rico" data-full="LightPhoto/web/9d438d84-3560-45f2-9302-32a8c58c3b9f_rw_3840.jpg"
+              loading="lazy" decoding="async"></div>
+          <div class="mosaic-tile"><img src="LightPhoto/web/3b96759d-da14-43ef-8f70-dbc1c751bc1c_rw_3840-sm.jpg" alt="Light Up Puerto Rico" data-full="LightPhoto/web/3b96759d-da14-43ef-8f70-dbc1c751bc1c_rw_3840.jpg"
+              loading="lazy" decoding="async"></div>
+          <div class="mosaic-tile"><img src="LightPhoto/web/ed5709ec-d4d1-4aab-b4b1-d6766bcb1f47_rw_3840-sm.jpg" alt="Light Up Puerto Rico" data-full="LightPhoto/web/ed5709ec-d4d1-4aab-b4b1-d6766bcb1f47_rw_3840.jpg"
+              loading="lazy" decoding="async"></div>
+          <div class="mosaic-tile"><img src="LightPhoto/web/c4f4adf2-5897-4bbb-9b95-01b7a9fb95f0_rw_3840-sm.jpg" alt="Light Up Puerto Rico" data-full="LightPhoto/web/c4f4adf2-5897-4bbb-9b95-01b7a9fb95f0_rw_3840.jpg"
+              loading="lazy" decoding="async"></div>
+          <div class="mosaic-tile"><img src="LightPhoto/web/8be5dfb0-6b37-4334-9ace-553f6fea2cbb_rw_3840-sm.jpg" alt="Light Up Puerto Rico" data-full="LightPhoto/web/8be5dfb0-6b37-4334-9ace-553f6fea2cbb_rw_3840.jpg"
+              loading="lazy" decoding="async"></div>
         </div>
       </div>
     </section>

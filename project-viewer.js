@@ -1,9 +1,11 @@
 // Interactive model viewer for project pages.
-// Usage: <div class="model-view" data-src="CADModels/X.obj" data-rot="-90,0,0" data-accent="#7ce8ff"><canvas></canvas></div>
+// Usage: <div class="model-view" data-src="CADModels/X.glb" data-rot="-90,0,0" data-accent="#7ce8ff"><canvas></canvas></div>
 import * as THREE from "three";
 import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/controls/OrbitControls.js";
-import { OBJLoader } from "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/OBJLoader.js";
 import { GLTFLoader } from "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/GLTFLoader.js";
+import { MeshoptDecoder } from "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/libs/meshopt_decoder.module.js";
+
+const loader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
 
 const makeMaterial = (color) => new THREE.MeshPhysicalMaterial({
   color,
@@ -65,9 +67,7 @@ const initViewer = (container) => {
     container.classList.add("loaded");
   };
 
-  const src = container.dataset.src;
-  if (src.endsWith(".obj")) new OBJLoader().load(src, onLoad);
-  else new GLTFLoader().load(src, (gltf) => onLoad(gltf.scene));
+  loader.load(container.dataset.src, (gltf) => onLoad(gltf.scene));
 
   let visible = true;
   new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; }).observe(container);

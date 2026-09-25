@@ -5,6 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Motorsports Training Tool</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js" />
   <link rel="stylesheet" href="project-template.css" />
 </head>
 
@@ -27,7 +29,7 @@
     <section class="resume-grid" style="margin-top: 1rem;">
       <div class="resume-section">
         <h2>Model</h2>
-        <div class="model-view" data-src="CADModels/Motorsports.obj" data-rot="-90,0,180" data-accent="#ffa37b"
+        <div class="model-view" data-src="CADModels/Motorsports.web.glb" data-rot="-90,0,180" data-accent="#ffa37b"
           data-size="2.2">
           <canvas></canvas>
           <div class="hint">Drag to orbit · scroll to zoom</div>
@@ -64,20 +66,20 @@
       <div class="resume-section">
         <h2>Gallery</h2>
         <div class="gallery-grid">
-          <div class="mosaic-tile"><img src="MotorPhotos/fbe0ea83-8b79-4538-a6ee-eb7fc6fcd6d3_rw_1920.png" alt="Motorsports Training Tool" data-full="MotorPhotos/fbe0ea83-8b79-4538-a6ee-eb7fc6fcd6d3_rw_1920.png" loading="lazy"
-              decoding="async"></div>
-          <div class="mosaic-tile"><img src="MotorPhotos/576dc3a3-748d-4370-b03c-f26d07379180_rw_1920.png" alt="Motorsports Training Tool" data-full="MotorPhotos/576dc3a3-748d-4370-b03c-f26d07379180_rw_1920.png" loading="lazy"
-              decoding="async"></div>
-          <div class="mosaic-tile"><img src="MotorPhotos/6f89e2ab-8fe5-488a-a1a6-9d8b1bcc749d_rw_1920.png" alt="Motorsports Training Tool" data-full="MotorPhotos/6f89e2ab-8fe5-488a-a1a6-9d8b1bcc749d_rw_1920.png" loading="lazy"
-              decoding="async"></div>
-          <div class="mosaic-tile"><img src="MotorPhotos/da7775ff-dd3f-41bb-b519-8e081daafa8c_rw_1920.png" alt="Motorsports Training Tool" data-full="MotorPhotos/da7775ff-dd3f-41bb-b519-8e081daafa8c_rw_1920.png" loading="lazy"
-              decoding="async"></div>
-          <div class="mosaic-tile"><img src="MotorPhotos/bc9ba06f-2c50-47a5-be89-dcbdb2023769_rw_1920.png" alt="Motorsports Training Tool" data-full="MotorPhotos/bc9ba06f-2c50-47a5-be89-dcbdb2023769_rw_1920.png" loading="lazy"
-              decoding="async"></div>
-          <div class="mosaic-tile"><img src="MotorPhotos/39533265-1f24-4799-88b1-315993b70727_rw_600.png" alt="Motorsports Training Tool" data-full="MotorPhotos/39533265-1f24-4799-88b1-315993b70727_rw_600.png" loading="lazy"
-              decoding="async"></div>
-          <div class="mosaic-tile"><img src="MotorPhotos/ef8f3a1c-3c14-4d83-b40a-071096e68a1f_rw_600.png" alt="Motorsports Training Tool" data-full="MotorPhotos/ef8f3a1c-3c14-4d83-b40a-071096e68a1f_rw_600.png" loading="lazy"
-              decoding="async"></div>
+          <div class="mosaic-tile"><img src="MotorPhotos/web/fbe0ea83-8b79-4538-a6ee-eb7fc6fcd6d3_rw_1920-sm.jpg" alt="Motorsports Training Tool" data-full="MotorPhotos/web/fbe0ea83-8b79-4538-a6ee-eb7fc6fcd6d3_rw_1920.jpg"
+              loading="lazy" decoding="async"></div>
+          <div class="mosaic-tile"><img src="MotorPhotos/web/576dc3a3-748d-4370-b03c-f26d07379180_rw_1920-sm.jpg" alt="Motorsports Training Tool" data-full="MotorPhotos/web/576dc3a3-748d-4370-b03c-f26d07379180_rw_1920.jpg"
+              loading="lazy" decoding="async"></div>
+          <div class="mosaic-tile"><img src="MotorPhotos/web/6f89e2ab-8fe5-488a-a1a6-9d8b1bcc749d_rw_1920-sm.jpg" alt="Motorsports Training Tool" data-full="MotorPhotos/web/6f89e2ab-8fe5-488a-a1a6-9d8b1bcc749d_rw_1920.jpg"
+              loading="lazy" decoding="async"></div>
+          <div class="mosaic-tile"><img src="MotorPhotos/web/da7775ff-dd3f-41bb-b519-8e081daafa8c_rw_1920-sm.jpg" alt="Motorsports Training Tool" data-full="MotorPhotos/web/da7775ff-dd3f-41bb-b519-8e081daafa8c_rw_1920.jpg"
+              loading="lazy" decoding="async"></div>
+          <div class="mosaic-tile"><img src="MotorPhotos/web/bc9ba06f-2c50-47a5-be89-dcbdb2023769_rw_1920-sm.jpg" alt="Motorsports Training Tool" data-full="MotorPhotos/web/bc9ba06f-2c50-47a5-be89-dcbdb2023769_rw_1920.jpg"
+              loading="lazy" decoding="async"></div>
+          <div class="mosaic-tile"><img src="MotorPhotos/web/39533265-1f24-4799-88b1-315993b70727_rw_600-sm.jpg" alt="Motorsports Training Tool" data-full="MotorPhotos/web/39533265-1f24-4799-88b1-315993b70727_rw_600.jpg"
+              loading="lazy" decoding="async"></div>
+          <div class="mosaic-tile"><img src="MotorPhotos/web/ef8f3a1c-3c14-4d83-b40a-071096e68a1f_rw_600-sm.jpg" alt="Motorsports Training Tool" data-full="MotorPhotos/web/ef8f3a1c-3c14-4d83-b40a-071096e68a1f_rw_600.jpg"
+              loading="lazy" decoding="async"></div>
         </div>
       </div>
     </section>
