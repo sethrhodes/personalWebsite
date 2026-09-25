@@ -15,44 +15,82 @@
   <div class="project-container">
     <section class="hero">
       <h1>Motorsports Training Tool</h1>
-      <p>A cost-effective preparation tool designed to democratize access to motorsports event readiness. By replacing
-        expensive traditional approaches, it enables a wider range of participants to train, test, and compete more
-        efficiently. The solution lowers barriers while maintaining performance-focused preparation.</p>
+      <p>An affordable reaction-time trainer that makes motorsports preparation accessible. It grew out of R&amp;D on the neuroscience of motorsports, and it replaces expensive traditional training with a compact steering-wheel and pedal rig. In testing, it raised users' reaction speeds by 6% on average.</p>
       <div class="tags">
         <span class="pill">Product</span>
-        <span class="pill">Data</span>
-        <span class="pill">UX</span>
+        <span class="pill">Motorsports</span>
+        <span class="pill">Performance</span>
+        <span class="pill">Electronics</span>
       </div>
     </section>
-    <section class="resume-grid" style="margin-top: 1rem;">
-      <!-- Overview moved to hero -->
 
+    <section class="resume-grid" style="margin-top: 1rem;">
       <div class="resume-section">
-        <h2>Gallery</h2>
-        <div class="mosaic">
-          <div class="mosaic-hero">
-            <img src="MotorPhotos/fbe0ea83-8b79-4538-a6ee-eb7fc6fcd6d3_rw_1920.png" loading="lazy" decoding="async">
-          </div>
-          <div class="mosaic-grid four-cols">
-            <div class="mosaic-tile"><img src="MotorPhotos/576dc3a3-748d-4370-b03c-f26d07379180_rw_1920.png"
-                loading="lazy"></div>
-            <div class="mosaic-tile"><img src="MotorPhotos/6f89e2ab-8fe5-488a-a1a6-9d8b1bcc749d_rw_1920.png"
-                loading="lazy"></div>
-            <div class="mosaic-tile"><img src="MotorPhotos/bc9ba06f-2c50-47a5-be89-dcbdb2023769_rw_1920.png"
-                loading="lazy"></div>
-            <div class="mosaic-tile"><img src="MotorPhotos/da7775ff-dd3f-41bb-b519-8e081daafa8c_rw_1920.png"
-                loading="lazy"></div>
-            <div class="mosaic-tile"><img src="MotorPhotos/39533265-1f24-4799-88b1-315993b70727_rw_600.png"
-                loading="lazy"></div>
-            <div class="mosaic-tile"><img src="MotorPhotos/ef8f3a1c-3c14-4d83-b40a-071096e68a1f_rw_600.png"
-                loading="lazy"></div>
-          </div>
+        <h2>Model</h2>
+        <div class="model-view" data-src="CADModels/Motorsports.obj" data-rot="-90,0,180" data-accent="#ffa37b"
+          data-size="2.2">
+          <canvas></canvas>
+          <div class="hint">Drag to orbit · scroll to zoom</div>
         </div>
       </div>
-  </div>
-  </section>
+
+      <div class="resume-section">
+        <h2>At a Glance</h2>
+        <div class="stat-row">
+          <div class="stat"><strong>+6%</strong><span>average reaction-speed improvement</span></div>
+          <div class="stat"><strong>Wheel + pedals</strong><span>driver-style controls</span></div>
+          <div class="stat"><strong>Arduino</strong><span>microcontroller with LCD prompts</span></div>
+          <div class="stat"><strong>Spring 2022</strong><span>research &amp; prototype</span></div>
+        </div>
+      </div>
+
+      <div class="resume-section body-copy">
+        <h2>The Problem</h2>
+        <p>Reaction time matters in motorsports, but the tools drivers use to train it are expensive and hard to access. I wanted a low-cost device that lets more people practice the same reflexes.</p>
+      </div>
+      <div class="resume-section body-copy">
+        <h2>The Design</h2>
+        <ul>
+          <li><strong>Steering-wheel controller:</strong> a 3D-printed wheel with a built-in LCD that prompts the driver</li>
+          <li><strong>Pedals:</strong> hinged throttle and brake pedals mounted on a low base</li>
+          <li><strong>Electronics:</strong> an Arduino, a 16x2 LCD, buttons, and LEDs, prototyped on a breadboard and then built into the enclosure</li>
+          <li><strong>Training loop:</strong> the LCD cues the driver (&ldquo;Press Start To Begin,&rdquo; &ldquo;PUNCH IT!&rdquo;) and times their response</li>
+        </ul>
+      </div>
+      <div class="resume-section body-copy">
+        <h2>Results</h2>
+        <p>In user testing, people who trained with the tool improved their reaction speed by 6% on average.</p>
+      </div>
+      <div class="resume-section">
+        <h2>Gallery</h2>
+        <div class="gallery-grid">
+          <div class="mosaic-tile"><img src="MotorPhotos/fbe0ea83-8b79-4538-a6ee-eb7fc6fcd6d3_rw_1920.png" alt="Motorsports Training Tool" data-full="MotorPhotos/fbe0ea83-8b79-4538-a6ee-eb7fc6fcd6d3_rw_1920.png" loading="lazy"
+              decoding="async"></div>
+          <div class="mosaic-tile"><img src="MotorPhotos/576dc3a3-748d-4370-b03c-f26d07379180_rw_1920.png" alt="Motorsports Training Tool" data-full="MotorPhotos/576dc3a3-748d-4370-b03c-f26d07379180_rw_1920.png" loading="lazy"
+              decoding="async"></div>
+          <div class="mosaic-tile"><img src="MotorPhotos/6f89e2ab-8fe5-488a-a1a6-9d8b1bcc749d_rw_1920.png" alt="Motorsports Training Tool" data-full="MotorPhotos/6f89e2ab-8fe5-488a-a1a6-9d8b1bcc749d_rw_1920.png" loading="lazy"
+              decoding="async"></div>
+          <div class="mosaic-tile"><img src="MotorPhotos/da7775ff-dd3f-41bb-b519-8e081daafa8c_rw_1920.png" alt="Motorsports Training Tool" data-full="MotorPhotos/da7775ff-dd3f-41bb-b519-8e081daafa8c_rw_1920.png" loading="lazy"
+              decoding="async"></div>
+          <div class="mosaic-tile"><img src="MotorPhotos/bc9ba06f-2c50-47a5-be89-dcbdb2023769_rw_1920.png" alt="Motorsports Training Tool" data-full="MotorPhotos/bc9ba06f-2c50-47a5-be89-dcbdb2023769_rw_1920.png" loading="lazy"
+              decoding="async"></div>
+          <div class="mosaic-tile"><img src="MotorPhotos/39533265-1f24-4799-88b1-315993b70727_rw_600.png" alt="Motorsports Training Tool" data-full="MotorPhotos/39533265-1f24-4799-88b1-315993b70727_rw_600.png" loading="lazy"
+              decoding="async"></div>
+          <div class="mosaic-tile"><img src="MotorPhotos/ef8f3a1c-3c14-4d83-b40a-071096e68a1f_rw_600.png" alt="Motorsports Training Tool" data-full="MotorPhotos/ef8f3a1c-3c14-4d83-b40a-071096e68a1f_rw_600.png" loading="lazy"
+              decoding="async"></div>
+        </div>
+      </div>
+    </section>
   </div>
 
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js"
+      }
+    }
+  </script>
+  <script type="module" src="project-viewer.js"></script>
   <script src="lightbox.js"></script>
 </body>
 

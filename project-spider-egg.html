@@ -11,64 +11,86 @@
 <body>
   <header>
     <a class="back" href="index.html">← Back</a>
-
   </header>
   <div class="project-container">
     <section class="hero">
       <h1>Spider Egg</h1>
-      <p>The SpiderEgg is a modular, autonomous unmanned underwater vehicle designed for ISR, strike, and mine
-        countermeasure missions through distributed lethality. It details a mission-flexible payload architecture
-        capable
-        of deploying kinetic “Spiders,” advanced sensors, FPV drones, and electronic warfare or relay systems across
-        undersea, surface, and air domains. The platform emphasizes stealth and survivability through quiet electric
-        propulsion, multi-layered PACE communications, and rapid surface exposure enabled by thermal and EO sensing.
-        Built
-        with an open, platform-agnostic architecture, SpiderEgg integrates seamlessly with submarines, surface
-        combatants,
-        and large UUVs to provide scalable mission or hard-kill effects from a single system.</p>
+      <p>A modular, autonomous unmanned underwater vehicle (UUV) for ISR, strike, and mine countermeasure missions. Its mission-flexible payload architecture can deploy kinetic "Spiders," advanced sensors, FPV drones, and electronic warfare or relay systems across undersea, surface, and air domains, all from a single platform.</p>
       <div class="tags">
         <span class="pill">UUV</span>
         <span class="pill">Robotics</span>
-        <span class="pill">Simulation</span>
+        <span class="pill">Autonomy</span>
+        <span class="pill">Defense</span>
       </div>
     </section>
 
     <section class="resume-grid" style="margin-top: 1rem;">
       <div class="resume-section">
+        <h2>Model</h2>
+        <div class="model-view" data-src="CADModels/1_48_Mk13.glb" data-rot="0,0,0" data-accent="#ff9bd5"
+          data-size="2.8">
+          <canvas></canvas>
+          <div class="hint">Drag to orbit · scroll to zoom</div>
+        </div>
+      </div>
+
+      <div class="resume-section">
+        <h2>At a Glance</h2>
+        <div class="stat-row">
+          <div class="stat"><strong>30 knots</strong><span>max speed</span></div>
+          <div class="stat"><strong>160 km</strong><span>max range</span></div>
+          <div class="stat"><strong>300 m</strong><span>max depth</span></div>
+          <div class="stat"><strong>3 Spiders</strong><span>kinetic effectors in the lower bay</span></div>
+        </div>
+      </div>
+
+      <div class="resume-section">
         <h2>Demo</h2>
         <div class="video-embed">
-          <video controls loop muted autoplay playsinline>
+          <video controls loop muted autoplay playsinline preload="metadata">
             <source src="SpiderPhoto/Demo.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>
       </div>
-
-      <div class="resume-section">
-        <h2>SpiderEgg Spec Sheet</h2>
-        <div class="mosaic">
-          <!-- Using mosaic-hero to prevent cropping (object-fit: contain) -->
-          <div class="mosaic-hero" style="background: transparent;">
-            <img src="SpiderPhoto/SpiderEggSpecSheet.png" loading="lazy" alt="Spider Egg Spec Sheet">
-          </div>
-        </div>
-
+      <div class="resume-section body-copy">
+        <h2>Mission</h2>
+        <p>Spider Egg emphasizes stealth and survivability through quiet electric propulsion, multi-layered PACE communications, and minimal time exposed at the surface. Its open, platform-agnostic architecture lets it integrate with submarines, surface combatants, and large UUVs, delivering anything from a precise mission kill to a coordinated hard kill from one system.</p>
       </div>
-
-      <div class="resume-section">
-        <h2>Spider Spec Sheet</h2>
-        <div class="mosaic"></div>
-        <div class="mosaic-hero" style="background: transparent;">
-          <img src="SpiderPhoto/SpiderSpecSheet.png" loading="lazy" alt="Spider Egg Spec Sheet Full">
-        </div>
+      <div class="resume-section body-copy">
+        <h2>Capabilities</h2>
+        <ul>
+          <li><strong>Quiet electric propulsion:</strong> a high-energy-density lithium-ion battery and a low-noise electric motor keep the acoustic signature minimal at speeds up to 30 knots</li>
+          <li><strong>Mission-flexible lower payload bay:</strong> holds up to three Spiders, sensor pods, or smaller specialized UUVs</li>
+          <li><strong>Versatile upper payload deck:</strong> FPV drones, electronic warfare modules, and buoyant relay sensors</li>
+          <li><strong>Thermal imaging &amp; PACE comms:</strong> a mast raises thermal/EO sensors plus SATCOM, Iridium, HF, and VHF links when surfaced</li>
+          <li><strong>Autonomous distributed strikes:</strong> directs Spiders individually or couples them to concentrate effects on priority threats</li>
+          <li><strong>Platform-agnostic integration:</strong> works with submarine combat systems, surface combatant networks, and large UUVs</li>
+        </ul>
       </div>
+      <div class="resume-section body-copy">
+        <h2>The Spider</h2>
+        <p>Each Spider is a compact kinetic effector: 1.5 m long, with electric propulsion, agile fin and rudder control surfaces, and onboard mesh networking for cooperative targeting. It is smaller than a standard Mk 54 torpedo and can launch from LWT tubes, large UUVs, beach-launched assets, aerial drones, or a Spider Egg capsule.</p>
+      </div>
+      <div class="resume-section">
+        <h2>Spec Sheets</h2>
+        <div class="spec-sheet"><img src="SpiderPhoto/SpiderEggSpecSheet.png" alt="Spider Egg spec sheet"
+            data-full="SpiderPhoto/SpiderEggSpecSheet.png" loading="lazy" decoding="async"></div>
+        <div class="spec-sheet"><img src="SpiderPhoto/SpiderSpecSheet.png" alt="Spider spec sheet"
+            data-full="SpiderPhoto/SpiderSpecSheet.png" loading="lazy" decoding="async"></div>
+      </div>
+    </section>
   </div>
-  </section>
-  </div>
-  <script src="lightbox.js"></script>
-  <script>
 
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js"
+      }
+    }
   </script>
+  <script type="module" src="project-viewer.js"></script>
+  <script src="lightbox.js"></script>
 </body>
 
 </html>

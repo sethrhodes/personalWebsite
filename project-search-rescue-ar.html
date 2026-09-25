@@ -15,46 +15,82 @@
   <div class="project-container">
     <section class="hero">
       <h1>Search &amp; Rescue AR</h1>
-      <p>In disaster zones and rural search-and-rescue missions, responders must manage radios, maps, thermal cameras,
-        and medical tools in low visibility and high noise environments.
-
-        Search&Rescue AR is a zero-latency AR system that overlays thermal target detection (bounding boxes), patient
-        vitals, and GPS/Wi-Fi positioning directly into a passthrough HUD—allowing rescuers to see people, health data,
-        and location without taking their hands off the mission.
-
-        The system combines an AR passthrough HUD on XREAL Air Pro 2 glasses with a real-time thermal imaging pipeline
-        that detects heat signatures and streams bounding boxes to a custom app. This enables true zero-latency
-        passthrough viewing, with patient vitals from a PPG sensor integrated into the HUD widget system.</p>
+      <p>A zero-latency AR heads-up display for hands-free search and rescue. It overlays thermal target detection, patient vitals, and GPS/Wi-Fi positioning directly in the rescuer's view, so they can see people, health data, and location without taking their hands off the mission. It won 1st Place at the Stanford XR Hackathon (Immerse the Bay).</p>
       <div class="tags">
         <span class="pill">AR</span>
         <span class="pill">Field Ops</span>
-        <span class="pill">Mapping</span>
+        <span class="pill">Thermal Imaging</span>
+        <span class="pill">Hackathon Winner</span>
       </div>
     </section>
+
     <section class="resume-grid" style="margin-top: 1rem;">
-      <!-- Overview moved to hero -->
+      <div class="resume-section">
+        <h2>Model</h2>
+        <div class="model-view" data-src="CADModels/Helmet.glb" data-rot="-90,0,0" data-accent="#7ce8ff"
+          data-size="2.2">
+          <canvas></canvas>
+          <div class="hint">Drag to orbit · scroll to zoom</div>
+        </div>
+      </div>
+
+      <div class="resume-section">
+        <h2>At a Glance</h2>
+        <div class="stat-row">
+          <div class="stat"><strong>1st Place</strong><span>Stanford XR Hackathon</span></div>
+          <div class="stat"><strong>Zero-latency</strong><span>passthrough HUD</span></div>
+          <div class="stat"><strong>3 feeds</strong><span>thermal targets, vitals, positioning</span></div>
+          <div class="stat"><strong>Winter 2025</strong><span>team of 3</span></div>
+        </div>
+      </div>
 
       <div class="resume-section">
         <h2>Demo</h2>
         <div class="video-embed">
-          <video controls loop muted autoplay playsinline>
-            <source src="SearchPhoto/S&R_AR.mp4" type="video/mp4" />
+          <video controls loop muted autoplay playsinline preload="metadata">
+            <source src="SearchPhoto/S&amp;R_AR.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>
       </div>
-
+      <div class="resume-section body-copy">
+        <h2>The Problem</h2>
+        <p>In disaster zones and rural search-and-rescue missions, responders juggle radios, maps, thermal cameras, and medical tools, often in low visibility and heavy noise. Every device they have to hold or look down at takes attention and hands away from the rescue.</p>
+      </div>
+      <div class="resume-section body-copy">
+        <h2>The System</h2>
+        <p>The system pairs an AR passthrough HUD on XREAL Air Pro 2 glasses with a real-time thermal imaging pipeline. The pipeline detects heat signatures and streams bounding boxes to a custom app, and passthrough viewing stays truly zero-latency.</p>
+        <ul>
+          <li><strong>Thermal target detection:</strong> bounding boxes drawn around heat signatures in the rescuer's view</li>
+          <li><strong>Patient vitals:</strong> PPG sensor data shown in a HUD widget</li>
+          <li><strong>Positioning:</strong> GPS and Wi-Fi location overlaid in the display</li>
+          <li><strong>Hands-free:</strong> helmet-mounted hardware keeps both hands on the mission</li>
+        </ul>
+      </div>
+      <div class="resume-section body-copy">
+        <h2>My Role</h2>
+        <p>I led CAD and interaction design on a team of three. That covered the helmet-mounted hardware and how information appears in the HUD. The project took 1st Place at the Stanford XR Hackathon.</p>
+      </div>
       <div class="resume-section">
         <h2>Gallery</h2>
-        <div class="mosaic-grid four-cols">
-          <div class="mosaic-tile"><img src="SearchPhoto/Front.jpg" loading="lazy"></div>
-          <div class="mosaic-tile"><img src="SearchPhoto/Side.jpg" loading="lazy"></div>
+        <div class="gallery-grid">
+          <div class="mosaic-tile tall"><img src="SearchPhoto/Front.jpg" alt="Front view of the helmet-mounted AR system" data-full="SearchPhoto/Front.jpg" loading="lazy"
+              decoding="async"></div>
+          <div class="mosaic-tile tall"><img src="SearchPhoto/Side.jpg" alt="Side view of the helmet-mounted AR system" data-full="SearchPhoto/Side.jpg" loading="lazy"
+              decoding="async"></div>
         </div>
       </div>
-  </div>
-  </section>
+    </section>
   </div>
 
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js"
+      }
+    }
+  </script>
+  <script type="module" src="project-viewer.js"></script>
   <script src="lightbox.js"></script>
 </body>
 
