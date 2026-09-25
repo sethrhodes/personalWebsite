@@ -7,7 +7,7 @@
   <title>Spider Egg</title>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js" />
-  <link rel="stylesheet" href="project-template.css" />
+  <link rel="stylesheet" href="project-template.css?v=6" />
 </head>
 
 <body>
@@ -32,11 +32,7 @@
         <div class="model-view" id="spider-view">
           <canvas></canvas>
           <div class="hint">Drag to orbit · scroll to zoom</div>
-          <div class="model-actions">
-            <button id="spider-toggle" type="button" disabled>Deploy Spiders</button>
-            <button id="drone-toggle" type="button" disabled>Deploy Drones</button>
-            <button id="mast-toggle" type="button" disabled>Raise Mast</button>
-          </div>
+          <button id="mission-toggle" type="button" disabled>Activate</button>
         </div>
       </div>
 
@@ -95,8 +91,8 @@
       }
     }
   </script>
-  <script type="module" src="spider-egg-viewer.js"></script>
-  <script src="lightbox.js"></script>
+  <script type="module" src="spider-egg-viewer.js?v=6"></script>
+  <script src="lightbox.js?v=6"></script>
 </body>
 
 </html>
