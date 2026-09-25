@@ -1,7 +1,7 @@
 // Spider Egg viewer with three mission sequences:
 //   - lower bay: doors open, the three Spiders drop out, doors close
 //   - upper bay: top bomb-bay doors open, FPV drones lift off and hover, doors close
-//   - sensor mast: rotates up from its stowed position along the hull
+//   - sensor mast: rotates up out of its stowed slot inside the hull
 // A single Activate button plays them in turn, and a second press reverses them.
 import * as THREE from "three";
 import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/controls/OrbitControls.js";
@@ -80,12 +80,16 @@ const droneSeq = {
   }
 };
 
-const MAST_STOWED = THREE.MathUtils.degToRad(88);
+// Mast folds flat into a slot along the spine; a cover closes over it when stowed.
+// Raise: cover opens, then mast swings up. Stow: mast folds down, then cover closes.
+const MAST_STOWED = THREE.MathUtils.degToRad(90), COVER_OPEN = THREE.MathUtils.degToRad(130);
 const mastSeq = {
-  duration: 1.6,
+  duration: 2.1,
   pose(time, forward) {
-    const t = ease(clamp01(time / this.duration));
-    parts.mast.rotation.z = MAST_STOWED * (1 - (forward ? t : 1 - t));
+    const tl = forward ? time : this.duration - time; // same timeline, played backwards to stow
+    const cover = ease(clamp01(tl / 0.5)), raise = ease(clamp01((tl - 0.5) / 1.6));
+    parts.mastCover.rotation.x = COVER_OPEN * cover;
+    parts.mast.rotation.z = MAST_STOWED * (1 - raise);
   }
 };
 
@@ -127,7 +131,7 @@ const updateMission = (dt) => {
 };
 
 // ---------------- Model ----------------
-new GLTFLoader().load("CADModels/SpiderEgg.glb?v=7", (gltf) => {
+new GLTFLoader().load("CADModels/SpiderEgg.glb?v=8", (gltf) => {
   const model = gltf.scene;
   model.traverse(node => {
     if (!node.isMesh) return;
@@ -146,6 +150,7 @@ new GLTFLoader().load("CADModels/SpiderEgg.glb?v=7", (gltf) => {
     if (/^Spider_\d$/.test(n)) parts.spiders.push({ node, home: node.position.clone() });
     if (/^Drone_\d$/.test(n)) parts.drones.push({ node, home: node.position.clone(), out: 0, props: [] });
     if (n === "Mast") parts.mast = node;
+    if (n === "MastCover") parts.mastCover = node;
   });
   parts.spiders.sort((a, b) => b.home.x - a.home.x); // release nose-first
   parts.drones.sort((a, b) => b.home.x - a.home.x);
