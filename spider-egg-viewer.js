@@ -1,6 +1,6 @@
 // Spider Egg viewer with three mission sequences:
 //   - lower bay: doors open, the three Spiders drop out, doors close
-//   - upper bay: hatches open, FPV drones lift off and hover, hatches close
+//   - upper bay: top bomb-bay doors open, FPV drones lift off and hover, doors close
 //   - sensor mast: rotates up from its stowed position along the hull
 // A single Activate button plays them in turn, and a second press reverses them.
 import * as THREE from "three";
@@ -60,7 +60,7 @@ const spiderSeq = {
   }
 };
 
-const HATCH_OPEN = THREE.MathUtils.degToRad(120);
+const HATCH_OPEN = THREE.MathUtils.degToRad(105);
 // Hover offsets from each drone's bay slot (nose-first order), fanned out above the vehicle
 const HOVER = [
   [0.35, 0.85, 0.7], [0.2, 1.15, -0.4], [0.05, 0.95, 0.25],
@@ -127,7 +127,7 @@ const updateMission = (dt) => {
 };
 
 // ---------------- Model ----------------
-new GLTFLoader().load("CADModels/SpiderEgg.glb?v=6", (gltf) => {
+new GLTFLoader().load("CADModels/SpiderEgg.glb?v=7", (gltf) => {
   const model = gltf.scene;
   model.traverse(node => {
     if (!node.isMesh) return;
@@ -183,8 +183,9 @@ const loop = (now) => {
     // Drones: fly between the bay and their hover points, bob while airborne, spin props
     parts.drones.forEach(({ node, home, out, props }, i) => {
       const bob = out * Math.sin(elapsed * 2.2 + i * 1.7) * 0.03;
-      node.position.copy(home).addScaledVector(HOVER[i], out);
-      node.position.y += bob;
+      // Climb straight up through the top doors first, then fan out to the hover point
+      const climb = clamp01(out / 0.45), spread = ease(clamp01((out - 0.3) / 0.7));
+      node.position.set(home.x + HOVER[i].x * spread, home.y + HOVER[i].y * (0.35 * climb + 0.65 * spread) + bob, home.z + HOVER[i].z * spread);
       node.rotation.set(0, out * Math.sin(i * 2.4) * 0.8, out * Math.sin(elapsed * 1.3 + i) * 0.06);
       props.forEach(p => { p.rotation.y += out > 0.001 ? dt * 40 : 0; });
     });
