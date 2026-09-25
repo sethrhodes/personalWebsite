@@ -2,7 +2,7 @@
 //   - lower bay: doors open, the three Spiders drop out, doors close
 //   - upper bay: hatches open, FPV drones lift off and hover, hatches close
 //   - sensor mast: rotates up from its stowed position along the hull
-// Each button plays its sequence forward, and a second press reverses it.
+// A single Activate button plays them in turn, and a second press reverses them.
 import * as THREE from "three";
 import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/GLTFLoader.js";
@@ -89,21 +89,45 @@ const mastSeq = {
   }
 };
 
-// ---------------- Buttons ----------------
-const actions = [
-  { id: "spider-toggle", seq: spiderSeq, labels: ["Deploy Spiders", "Reload Spiders"] },
-  { id: "drone-toggle", seq: droneSeq, labels: ["Deploy Drones", "Recall Drones"] },
-  { id: "mast-toggle", seq: mastSeq, labels: ["Raise Mast", "Stow Mast"] },
-].map(a => ({ ...a, button: document.getElementById(a.id), active: false, playing: false, clock: 0 }));
+// ---------------- Activate button ----------------
+// One button runs the full mission: raise mast, launch drones, release Spiders.
+// Pressing it again reverses everything in the opposite order.
+const button = document.getElementById("mission-toggle");
+const steps = [
+  { seq: mastSeq, activate: 0.0, reset: 2.2 },
+  { seq: droneSeq, activate: 0.9, reset: 1.0 },
+  { seq: spiderSeq, activate: 2.4, reset: 0.0 },
+].map(step => ({ ...step, done: false }));
+const missionLength = (key) => Math.max(...steps.map(s => s[key] + s.seq.duration));
 
-actions.forEach(action => action.button.addEventListener("click", () => {
-  if (action.playing) return;
-  action.playing = true; action.clock = 0; action.button.disabled = true;
+let active = false, playing = false, clock = 0;
+button.addEventListener("click", () => {
+  if (playing) return;
+  playing = true; clock = 0; button.disabled = true;
+  steps.forEach(step => { step.done = false; });
   controls.autoRotate = false;
-}));
+});
+
+const updateMission = (dt) => {
+  if (!playing) return;
+  clock += dt;
+  const key = active ? "reset" : "activate";
+  steps.forEach(step => {
+    if (step.done) return;
+    const t = clock - step[key];
+    if (t < 0) return;
+    step.seq.pose(Math.min(t, step.seq.duration), !active);
+    if (t >= step.seq.duration) step.done = true;
+  });
+  if (clock >= missionLength(key)) {
+    playing = false; active = !active;
+    button.textContent = active ? "Reset" : "Activate";
+    button.disabled = false; controls.autoRotate = true;
+  }
+};
 
 // ---------------- Model ----------------
-new GLTFLoader().load("CADModels/SpiderEgg.glb", (gltf) => {
+new GLTFLoader().load("CADModels/SpiderEgg.glb?v=6", (gltf) => {
   const model = gltf.scene;
   model.traverse(node => {
     if (!node.isMesh) return;
@@ -130,7 +154,7 @@ new GLTFLoader().load("CADModels/SpiderEgg.glb", (gltf) => {
 
   model.scale.setScalar(3.2 / 5.79); // hull length → scene units, leaving room above and below
   scene.add(model);
-  actions.forEach(a => { a.button.disabled = false; });
+  button.disabled = false;
 });
 
 // ---------------- Render loop ----------------
@@ -155,17 +179,7 @@ const loop = (now) => {
   elapsed += dt;
 
   if (parts.mast) {
-    actions.forEach(action => {
-      if (!action.playing) return;
-      action.clock += dt;
-      action.seq.pose(Math.min(action.clock, action.seq.duration), !action.active);
-      if (action.clock >= action.seq.duration) {
-        action.playing = false; action.active = !action.active;
-        action.button.textContent = action.labels[action.active ? 1 : 0];
-        action.button.disabled = false;
-        if (!actions.some(a => a.playing)) controls.autoRotate = true;
-      }
-    });
+    updateMission(dt);
     // Drones: fly between the bay and their hover points, bob while airborne, spin props
     parts.drones.forEach(({ node, home, out, props }, i) => {
       const bob = out * Math.sin(elapsed * 2.2 + i * 1.7) * 0.03;
