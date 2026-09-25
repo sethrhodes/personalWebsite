@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Multi-Axis Door — Volkswagen Capstone</title>
+  <link rel="stylesheet" href="project-template.css" />
+  <style>
+    .model-view {
+      aspect-ratio: 16 / 9;
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: radial-gradient(circle at 30% 30%, #111, #050505 55%);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .model-view canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      cursor: grab;
+    }
+
+    .model-view .hint {
+      position: absolute;
+      left: 0.9rem;
+      bottom: 0.7rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      pointer-events: none;
+    }
+
+    .model-view button {
+      position: absolute;
+      right: 0.8rem;
+      bottom: 0.7rem;
+      padding: 0.4rem 0.8rem;
+      border-radius: 999px;
+      border: 1px solid var(--pill-border);
+      background: rgba(0, 0, 0, 0.55);
+      color: var(--fg);
+      font: inherit;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    .paper-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      width: fit-content;
+      padding: 0.7rem 1.1rem;
+      border-radius: 999px;
+      border: 1px solid #ffffff;
+      text-decoration: none;
+      font-weight: 500;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.18);
+    }
+
+    .paper-link:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 0.8rem;
+    }
+
+    .stat {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.6rem;
+      letter-spacing: -0.02em;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .body-copy .mosaic-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .body-copy .mosaic-tile {
+      margin-top: 0.8rem;
+      max-width: 720px;
+      aspect-ratio: auto;
+      cursor: zoom-in;
+    }
+
+    @media (max-width: 600px) {
+      .body-copy .mosaic-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .body-copy .mosaic-grid {
+      align-items: start;
+    }
+
+    .body-copy .mosaic-tile img {
+      width: auto;
+      max-width: 100%;
+      max-height: 460px;
+      height: auto;
+      display: block;
+      background: #fff;
+      border-radius: 10px;
+    }
+
+    .body-copy p,
+    .body-copy li {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <a class="back" href="index.html">← Back</a>
+  </header>
+  <div class="project-container">
+    <section class="hero">
+      <h1>Multi-Axis Door — Volkswagen</h1>
+      <p>Stanford Mechanical Engineering senior capstone in partnership with the Volkswagen Innovation and Engineering
+        Center California (IECC). We built a sliding door system that works like a van's automatic door, but for the
+        front passenger seat. Instead of swinging on a hinge, the door first pushes straight out from the body and then
+        slides toward the front of the car. That clears the whole opening for drivers with reduced mobility.</p>
+      <div class="tags">
+        <span class="pill">Automotive</span>
+        <span class="pill">Accessibility</span>
+        <span class="pill">Mechanisms</span>
+        <span class="pill">Full-Scale Prototype</span>
+      </div>
+      <a class="paper-link" href="https://searchworks.stanford.edu/view/jv618zg4362" target="_blank"
+        rel="noreferrer">Read the Final Report ↗</a>
+    </section>
+
+    <section class="resume-grid" style="margin-top: 1rem;">
+      <div class="resume-section">
+        <h2>Model</h2>
+        <div class="model-view">
+          <canvas id="door-canvas"></canvas>
+          <div class="hint">Drag to orbit · scroll to zoom</div>
+          <button id="door-toggle" type="button">Close door</button>
+        </div>
+      </div>
+
+      <div class="resume-section">
+        <h2>At a Glance</h2>
+        <div class="stat-row">
+          <div class="stat"><strong>+253%</strong><span>usable entrance volume vs. a hinged door</span></div>
+          <div class="stat"><strong>2 motions</strong><span>push out (y-axis), then slide forward (x-axis)</span></div>
+          <div class="stat"><strong>4 subsystems</strong><span>push-pull, pivot arm, chain &amp; sprocket, alignment</span></div>
+          <div class="stat"><strong>1:1</strong><span>full-scale working prototype</span></div>
+        </div>
+      </div>
+
+      <div class="resume-section body-copy">
+        <h2>How It Moves</h2>
+        <p><strong>Motion A:</strong> the Push-Pull Mechanism drives the door straight out from the body along the
+          y-axis, clearing the frame. <strong>Motion B:</strong> the Chain &amp; Sprocket Mechanism then slides the door
+          along the x-axis toward the front of the car, leaving the whole opening clear.</p>
+        <div class="mosaic">
+          <div class="mosaic-grid">
+            <div class="mosaic-tile">
+              <img src="VWDoorPhotos/fig5-motion-a.jpg" alt="Front view of the rig before and after the door pushes out"
+                data-full="VWDoorPhotos/fig5-motion-a.jpg" loading="lazy" decoding="async">
+            </div>
+            <div class="mosaic-tile">
+              <img src="VWDoorPhotos/fig6-motion-b.jpg" alt="Side view of the door sliding forward along the rig"
+                data-full="VWDoorPhotos/fig6-motion-b.jpg" loading="lazy" decoding="async">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="resume-section body-copy">
+        <h2>Subsystems</h2>
+        <div class="resume-list">
+          <div class="resume-item">
+            <div class="topline emphasize">Push-Pull Mechanism</div>
+            <p>Creates the outward motion along the y-axis. It is a linear actuator driving an 80/20 aluminum frame
+              under the floor, with rollers that carry the door's lower rail.</p>
+            <div class="mosaic-tile"><img src="VWDoorPhotos/fig9-push-pull.jpg" alt="Location of the push-pull mechanism"
+                data-full="VWDoorPhotos/fig9-push-pull.jpg" loading="lazy" decoding="async"></div>
+          </div>
+          <div class="resume-item">
+            <div class="topline emphasize">Pivot Arm</div>
+            <p>An L-shaped hinge mounted to the A-pillar and pinned to the door. It is the key link between the push-out
+              and sliding motions. It lets the door move outward along the y-axis while supporting it, keeps it from
+              rotating about the x-axis, and carries the Chain &amp; Sprocket Mechanism, so the handoff between the two
+              motions stays smooth and controlled.</p>
+            <div class="mosaic-tile"><img src="VWDoorPhotos/fig10-pivot-arm.jpg" alt="Pivot arm close-up and location"
+                data-full="VWDoorPhotos/fig10-pivot-arm.jpg" loading="lazy" decoding="async"></div>
+          </div>
+          <div class="resume-item">
+            <div class="topline emphasize">Chain &amp; Sprocket Mechanism</div>
+            <p>A motor-driven chain and sprocket mounted on an 80/20 rail, with the chain attached directly to the door
+              frame. Once the door is pushed out, it drives the door along the x-axis toward the front of the car at a
+              steady, controlled speed, finishing the automatic opening sequence.</p>
+            <div class="mosaic-tile"><img src="VWDoorPhotos/fig11-chain-sprocket.jpg"
+                alt="Close-up of the chain and sprocket mechanism" data-full="VWDoorPhotos/fig11-chain-sprocket.jpg"
+                loading="lazy" decoding="async"></div>
+          </div>
+          <div class="resume-item">
+            <div class="topline emphasize">Alignment Actuator</div>
+            <p>A small linear actuator under the pivot bracket on the A-pillar. When engaged, it drives a locating pin up
+              into the Pivot Arm, holding the door in line with the frame.</p>
+            <div class="mosaic-tile"><img src="VWDoorPhotos/fig12-alignment-actuator.jpg"
+                alt="Close-up of the alignment actuator in the engaged position"
+                data-full="VWDoorPhotos/fig12-alignment-actuator.jpg" loading="lazy" decoding="async"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="resume-section body-copy">
+        <h2>Process</h2>
+        <p>We started with user research on how people with reduced mobility get in and out of vehicles, turned those
+          findings into requirements, and built a full-scale wooden test rig of a front-passenger opening. We then brought
+          it from concept to a validated, working mechanical system, with guidance from Volkswagen IECC engineers
+          throughout.</p>
+      </div>
+
+      <div class="resume-section body-copy">
+        <h2>Final Report</h2>
+        <p>The full capstone report is archived in the Stanford Digital Repository. It covers the research, design
+          iterations, analysis, and prototype validation.</p>
+        <a class="paper-link" href="https://searchworks.stanford.edu/view/jv618zg4362" target="_blank"
+          rel="noreferrer">View on Stanford SearchWorks ↗</a>
+      </div>
+    </section>
+  </div>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js"
+      }
+    }
+  </script>
+  <script type="module">
+    import * as THREE from "three";
+    import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/controls/OrbitControls.js";
+    import { GLTFLoader } from "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/GLTFLoader.js";
+
+    const canvas = document.getElementById("door-canvas");
+    const toggle = document.getElementById("door-toggle");
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setClearColor(0x000000, 0);
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(40, 16 / 9, 0.1, 100);
+    camera.position.set(1.6, 1.2, 3.4);
+
+    const controls = new OrbitControls(camera, canvas);
+    controls.enableDamping = true;
+    controls.enablePan = false;
+    controls.minDistance = 2;
+    controls.maxDistance = 7;
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 0.5;
+
+    const color = 0xffffff;
+    const accent = 0x8fb8ff;
+    const makeMaterial = (highlight) => new THREE.MeshPhysicalMaterial({
+      color: highlight ? accent : color,
+      roughness: 0.35,
+      transparent: true,
+      opacity: highlight ? 0.5 : 0.35,
+      emissive: new THREE.Color(highlight ? accent : color),
+      emissiveIntensity: 0.18,
+      side: THREE.DoubleSide,
+      depthWrite: false
+    });
+
+    // Offsets between the exported open pose and the closed pose (model units)
+    const DOOR_OUT = 0.15, DOOR_FWD = -0.55;
+    const ARM_TIP = new THREE.Vector3(0.1, 0, 0.2);
+    // Arm angle at which the tip sits DOOR_OUT closer to the body
+    const solveClosedAngle = () => {
+      let lo = 0, hi = Math.PI / 2;
+      for (let i = 0; i < 40; i++) {
+        const mid = (lo + hi) / 2;
+        const z = -ARM_TIP.x * Math.sin(mid) + ARM_TIP.z * Math.cos(mid);
+        if (z > ARM_TIP.z - DOOR_OUT) lo = mid; else hi = mid;
+      }
+      return lo;
+    };
+    const CLOSED_ANGLE = solveClosedAngle();
+    const parts = {};
+
+    new GLTFLoader().load("CADModels/VWDoor.glb", (gltf) => {
+      const model = gltf.scene;
+      model.traverse(node => {
+        if (!node.isMesh) return;
+        const moving = !node.name.startsWith("Frame");
+        node.material = makeMaterial(moving);
+        node.add(new THREE.LineSegments(
+          new THREE.EdgesGeometry(node.geometry, 30),
+          new THREE.LineBasicMaterial({ color: moving ? accent : color, transparent: true, opacity: 0.85 })
+        ));
+      });
+      ["Door", "PushPull", "PivotArm", "Carriage"].forEach(name => {
+        const node = model.getObjectByName(name);
+        if (node) parts[name] = { node, open: node.position.clone() };
+      });
+
+      const box = new THREE.Box3().setFromObject(model);
+      const size = box.getSize(new THREE.Vector3());
+      model.scale.setScalar(2.3 / Math.max(size.x, size.y, size.z));
+      box.setFromObject(model);
+      model.position.sub(box.getCenter(new THREE.Vector3()));
+      scene.add(model);
+    });
+
+    // t = 1 fully open, 0 closed. Motion A (0–0.5) pushes out, Motion B (0.5–1) slides forward.
+    let t = 1, target = 1;
+    const ease = (x) => x * x * (3 - 2 * x);
+    const applyPose = () => {
+      if (!parts.Door) return;
+      const out = ease(Math.min(1, t * 2));
+      const fwd = ease(Math.max(0, t * 2 - 1));
+      const { Door, PushPull, PivotArm, Carriage } = parts;
+      Door.node.position.set(Door.open.x - DOOR_FWD * (1 - fwd), Door.open.y, Door.open.z - DOOR_OUT * (1 - out));
+      PushPull.node.position.z = PushPull.open.z - DOOR_OUT * (1 - out);
+      const angle = CLOSED_ANGLE * (1 - out);
+      PivotArm.node.rotation.y = angle;
+      const tip = ARM_TIP.clone().applyAxisAngle(new THREE.Vector3(0, 1, 0), angle).sub(ARM_TIP);
+      Carriage.node.position.set(Carriage.open.x + tip.x, Carriage.open.y, Carriage.open.z + tip.z);
+    };
+
+    toggle.addEventListener("click", () => {
+      target = target === 1 ? 0 : 1;
+      toggle.textContent = target === 1 ? "Close door" : "Open door";
+    });
+
+    const resize = () => {
+      const w = canvas.clientWidth, h = canvas.clientHeight;
+      if (canvas.width !== Math.floor(w * renderer.getPixelRatio())) {
+        renderer.setSize(w, h, false);
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+      }
+    };
+
+    const loop = () => {
+      resize();
+      if (t !== target) {
+        t += Math.sign(target - t) * 0.012;
+        if (Math.abs(t - target) < 0.012) t = target;
+      }
+      applyPose();
+      controls.update();
+      renderer.render(scene, camera);
+      requestAnimationFrame(loop);
+    };
+    loop();
+  </script>
+  <script src="lightbox.js"></script>
+</body>
+
+</html>

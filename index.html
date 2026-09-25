@@ -338,6 +338,25 @@
   </header>
 
   <main>
+    <section class="project" data-model="vwDoor" data-accent="#8fb8ff" data-rot="0,-35,0" data-spin="0,1,0"
+      data-href="project-vw-door.html">
+      <div class="meta">
+        <h2>Multi-Axis Door — Volkswagen</h2>
+        <p>Stanford ME senior capstone with Volkswagen IECC: an automatic front-passenger door that pushes out and slides
+          forward instead of swinging on a hinge, increasing usable entrance volume by 253% for drivers with reduced
+          mobility.</p>
+        <div class="tags">
+          <span class="pill">Automotive</span>
+          <span class="pill">Accessibility</span>
+          <span class="pill">Mechanisms</span>
+        </div>
+      </div>
+      <div class="thumb">
+        <canvas class="webgl"></canvas>
+        <div class="label">Wireframe</div>
+      </div>
+    </section>
+
     <section class="project" data-model="helmet" data-accent="#7ce8ff" data-rot="-90,0,0" data-spin="0,0,1"
       data-href="project-search-rescue-ar.html">
       <div class="meta">
@@ -599,6 +618,9 @@
       } else if (model === "uuv") {
         mesh = new THREE.Group();
         loadGLTFModel(mesh, "CADModels/1_48_Mk13.glb", wireColor, 2.8);
+      } else if (model === "vwDoor") {
+        mesh = new THREE.Group();
+        loadGLTFModel(mesh, "CADModels/VWDoor.glb", wireColor, 1.9);
       } else if (model === "flashlight") {
         mesh = new THREE.Group();
         loadOBJModel(mesh, "CADModels/FlashLight.obj", wireColor);
