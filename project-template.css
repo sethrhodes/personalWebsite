@@ -516,3 +516,43 @@ header {
 .spec-sheet+.spec-sheet {
   margin-top: 1rem;
 }
+
+.model-view .model-actions {
+  position: absolute;
+  right: 0.8rem;
+  bottom: 0.7rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.4rem;
+}
+
+.model-view .model-actions button {
+  position: static;
+}
+
+.model-view button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+@media (max-width: 600px) {
+  .model-view:has(.model-actions) {
+    aspect-ratio: auto;
+  }
+
+  .model-view:has(.model-actions) canvas {
+    height: 280px;
+  }
+
+  .model-view:has(.model-actions) .hint {
+    display: none;
+  }
+
+  .model-view .model-actions {
+    position: static;
+    justify-content: center;
+    padding: 0.6rem;
+    border-top: 1px solid var(--border);
+  }
+}
