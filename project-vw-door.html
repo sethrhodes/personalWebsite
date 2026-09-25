@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Multi-Axis Door — Volkswagen Capstone</title>
+  <link rel="stylesheet" href="project-template.css" />
+  <style>
+    .model-view {
+      aspect-ratio: 16 / 9;
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: radial-gradient(circle at 30% 30%, #111, #050505 55%);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .model-view canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      cursor: grab;
+    }
+
+    .model-view .hint {
+      position: absolute;
+      left: 0.9rem;
+      bottom: 0.7rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      pointer-events: none;
+    }
+
+    .model-view button {
+      position: absolute;
+      right: 0.8rem;
+      bottom: 0.7rem;
+      padding: 0.4rem 0.8rem;
+      border-radius: 999px;
+      border: 1px solid var(--pill-border);
+      background: rgba(0, 0, 0, 0.55);
+      color: var(--fg);
+      font: inherit;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    .paper-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      width: fit-content;
+      padding: 0.7rem 1.1rem;
+      border-radius: 999px;
+      border: 1px solid #ffffff;
+      text-decoration: none;
+      font-weight: 500;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.18);
+    }
+
+    .paper-link:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 0.8rem;
+    }
+
+    .stat {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.6rem;
+      letter-spacing: -0.02em;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .body-copy p,
+    .body-copy li {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <a class="back" href="index.html">← Back</a>
+  </header>
+  <div class="project-container">
+    <section class="hero">
+      <h1>Multi-Axis Door — Volkswagen</h1>
+      <p>Stanford Mechanical Engineering senior capstone in partnership with the Volkswagen Innovation and Engineering
+        Center California (IECC). Instead of swinging on a hinge, the door translates outward and then forward along the
+        body, clearing the entire aperture so drivers with reduced mobility can get in and out without fighting a door
+        swing or a tight parking space.</p>
+      <div class="tags">
+        <span class="pill">Automotive</span>
+        <span class="pill">Accessibility</span>
+        <span class="pill">Mechanisms</span>
+        <span class="pill">Full-Scale Prototype</span>
+      </div>
+      <a class="paper-link" href="https://searchworks.stanford.edu/view/jv618zg4362" target="_blank"
+        rel="noreferrer">Read the Final Report ↗</a>
+    </section>
+
+    <section class="resume-grid" style="margin-top: 1rem;">
+      <div class="resume-section">
+        <h2>Model</h2>
+        <div class="model-view">
+          <canvas id="door-canvas"></canvas>
+          <div class="hint">Drag to orbit · scroll to zoom</div>
+          <button id="door-toggle" type="button">Close door</button>
+        </div>
+      </div>
+
+      <div class="resume-section">
+        <h2>At a Glance</h2>
+        <div class="stat-row">
+          <div class="stat"><strong>+253%</strong><span>usable entrance volume vs. a hinged door</span></div>
+          <div class="stat"><strong>2 axes</strong><span>outward, then forward translation</span></div>
+          <div class="stat"><strong>1:1</strong><span>full-scale working prototype</span></div>
+          <div class="stat"><strong>Sep ’25 – Mar ’26</strong><span>Stanford ME capstone</span></div>
+        </div>
+      </div>
+
+      <div class="resume-section body-copy">
+        <h2>The Problem</h2>
+        <p>A conventional hinged door sweeps an arc beside the car. For drivers with reduced mobility, that arc is the
+          problem: the open door blocks the path to the seat, needs a lot of side clearance, and forces people to twist
+          around it. Aftermarket fixes such as ramps and lifts add cost and complexity and are hard to build into the
+          vehicle at the factory.</p>
+      </div>
+
+      <div class="resume-section body-copy">
+        <h2>The Design</h2>
+        <p>The door moves on two axes. First, carriages on guide rails at the sill and header push it straight out,
+          clearing the body. Then it slides forward, parallel to the vehicle, leaving the whole aperture open with nothing
+          sticking out into the entry path. Because the door moves in straight lines instead of an arc, it needs much less
+          side clearance and opens up far more usable entrance volume.</p>
+        <ul>
+          <li>Outward-then-forward translation replaces the hinge arc</li>
+          <li>Upper and lower guide rails keep the door parallel to the body throughout travel</li>
+          <li>Opening designed around a seated occupant's ingress and egress path</li>
+        </ul>
+      </div>
+
+      <div class="resume-section body-copy">
+        <h2>Process</h2>
+        <p>We started with user research on how people with reduced mobility get in and out of vehicles, turned those
+          findings into requirements, and iterated from concept mechanisms to a validated full-scale prototype of a working
+          mechanical system, with guidance from Volkswagen IECC engineers throughout.</p>
+      </div>
+
+      <div class="resume-section body-copy">
+        <h2>Final Report</h2>
+        <p>The full capstone report is archived in the Stanford Digital Repository. It covers the research, design
+          iterations, analysis, and prototype validation.</p>
+        <a class="paper-link" href="https://searchworks.stanford.edu/view/jv618zg4362" target="_blank"
+          rel="noreferrer">View on Stanford SearchWorks ↗</a>
+      </div>
+    </section>
+  </div>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js"
+      }
+    }
+  </script>
+  <script type="module">
+    import * as THREE from "three";
+    import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/controls/OrbitControls.js";
+    import { GLTFLoader } from "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/GLTFLoader.js";
+
+    const canvas = document.getElementById("door-canvas");
+    const toggle = document.getElementById("door-toggle");
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setClearColor(0x000000, 0);
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(40, 16 / 9, 0.1, 100);
+    camera.position.set(2.6, 1.3, 3.2);
+
+    const controls = new OrbitControls(camera, canvas);
+    controls.enableDamping = true;
+    controls.enablePan = false;
+    controls.minDistance = 2;
+    controls.maxDistance = 7;
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 0.5;
+
+    const color = 0xffffff;
+    const makeMaterial = (highlight) => new THREE.MeshPhysicalMaterial({
+      color: highlight ? 0x8fb8ff : color,
+      roughness: 0.35,
+      transparent: true,
+      opacity: highlight ? 0.55 : 0.4,
+      emissive: new THREE.Color(highlight ? 0x8fb8ff : color),
+      emissiveIntensity: 0.18,
+      side: THREE.DoubleSide,
+      depthWrite: false
+    });
+
+    // Parts that ride with the door, animated between closed and open
+    const MOVING = ["DoorPanel", "DoorHandle", "Carriage", "OutwardArm", "ArmSleeve", "ArmTie"];
+    const OPEN_OFFSET = new THREE.Vector3(0.62, 0, 0.42);
+    const movers = [];
+
+    new GLTFLoader().load("CADModels/VWDoor.glb", (gltf) => {
+      const model = gltf.scene;
+      model.traverse(node => {
+        if (!node.isMesh) return;
+        const moving = MOVING.some(name => node.name.startsWith(name));
+        node.material = makeMaterial(moving);
+        const edges = new THREE.LineSegments(
+          new THREE.EdgesGeometry(node.geometry, 30),
+          new THREE.LineBasicMaterial({ color: moving ? 0x8fb8ff : color, transparent: true, opacity: 0.85 })
+        );
+        node.add(edges);
+        if (moving) {
+          const scaleZ = node.name.startsWith("OutwardArm") || node.name.startsWith("ArmSleeve");
+          movers.push({ node, open: node.position.clone(), scaleZ });
+        }
+      });
+
+      const box = new THREE.Box3().setFromObject(model);
+      const size = box.getSize(new THREE.Vector3());
+      const scale = 3 / Math.max(size.x, size.y, size.z);
+      model.scale.setScalar(scale);
+      box.setFromObject(model);
+      model.position.sub(box.getCenter(new THREE.Vector3()));
+      scene.add(model);
+    });
+
+    // t = 1 fully open, 0 closed. Phase 1 (0–0.5) moves outward, phase 2 (0.5–1) moves forward.
+    let t = 1, target = 1;
+    const ease = (x) => x * x * (3 - 2 * x);
+    const applyPose = () => {
+      const out = ease(Math.min(1, t * 2));
+      const fwd = ease(Math.max(0, t * 2 - 1));
+      movers.forEach(({ node, open, scaleZ }) => {
+        node.position.set(
+          open.x - OPEN_OFFSET.x * (1 - fwd),
+          open.y,
+          scaleZ ? open.z - (OPEN_OFFSET.z / 2) * (1 - out) : open.z - OPEN_OFFSET.z * (1 - out)
+        );
+        if (scaleZ) node.scale.z = Math.max(0.05, out);
+      });
+    };
+
+    toggle.addEventListener("click", () => {
+      target = target === 1 ? 0 : 1;
+      toggle.textContent = target === 1 ? "Close door" : "Open door";
+    });
+
+    const resize = () => {
+      const w = canvas.clientWidth, h = canvas.clientHeight;
+      if (canvas.width !== Math.floor(w * renderer.getPixelRatio())) {
+        renderer.setSize(w, h, false);
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+      }
+    };
+
+    const loop = () => {
+      resize();
+      if (t !== target) {
+        t += Math.sign(target - t) * 0.012;
+        if (Math.abs(t - target) < 0.012) t = target;
+      }
+      applyPose();
+      controls.update();
+      renderer.render(scene, camera);
+      requestAnimationFrame(loop);
+    };
+    loop();
+  </script>
+</body>
+
+</html>
