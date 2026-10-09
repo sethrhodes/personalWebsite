@@ -698,3 +698,37 @@ header {
     font-size: 1.3rem;
   }
 }
+
+.highlight-grid {
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.highlight {
+  display: grid;
+  gap: 0.3rem;
+  align-content: start;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.highlight .where {
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.highlight strong {
+  font-size: 1.15rem;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.22);
+}
+
+.highlight .blurb {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
